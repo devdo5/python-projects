@@ -1,2 +1,2 @@
-Repo for my python homeworks/projects for class
-# python-projects
+For my python homeworks/projects from class
+
