@@ -1,6 +1,7 @@
 # I was really tired and rushed and couldn't give a fuck to make this look good, sorry to whoever is reading this (probably future me)
 from time import sleep
 from random import randint
+from os import system
 #GLOBAL VARIABLES
 goblinhp = 60
 playerdamdagger = [2,3,4,5]
@@ -14,6 +15,9 @@ hp = 50
 stuff = { 'gold': 300, 'potion': 1, 'arrow': 20, 'dagger': 1}
 hpthresh = 100
 idk = ''
+
+def clear():
+  system('printf "\033c"')
 
 def resetvars():
     global goblinhp
@@ -41,9 +45,11 @@ def choosediff():
       choosediff()
     difficulty = choice
     
+    
 def gameend():
   print("\nThanks for playing, i'm a shitty programmer so this was a fun and fairly simple project to do. Even though it looks simple, it took a while to make and I appreciate any feedback if you happen to want to torture yourself and look at the source code. My email is dev@udel.edu.")
-  input("\nPress enter to play again, press Control-C or Control-D to exit.")
+  input("\nPress enter to play again.")
+  clear()
   resetvars()
   gamestart()
 
@@ -61,10 +67,11 @@ def goblinturn():
   print("\nThe goblin attacks you for " + str(attackdmg) + " damage.")
   hp -= attackdmg
   if hp <= 0:
+    clear()
     print("\nYou have died. You suck (unless this is hard mode) at this game.")
     gameend()
   else:
-    combat1()  
+    combat1()
     
     
 def combat1():
@@ -78,6 +85,7 @@ def combat1():
       if stuff['sword'] > 0:
         print("\nYou strike the goblin with your sword for "+str(playerdamsword[randint(0,5)])+" damage.")
         goblinhp -= playerdamsword[randint(0,5)]
+        
         sleep(1)
     except KeyError:
       try:
@@ -87,16 +95,21 @@ def combat1():
                 goblinhp -= playerdambow[randint(0,5)]
                 stuff['arrow']-= 1
                 sleep(1)
+                clear()
             else:
+                clear()
                 print("\nYou are out of arrows!")
       except KeyError:
           print("\nYou strike the goblin with your dagger for "+str(playerdamdagger[randint(0,3)])+" damage.")
           goblinhp -= playerdamdagger[randint(0,3)]
           sleep(1)
+          clear()
     if isdead() is False:
         sleep(1)
+        clear()
         goblinturn()
     else:
+      clear()
       print("\nThe goblin finally dies and falls to the ground as blood pours from its wounds. You deliver a final blow and decapitate him. Inside the cave you set the kidnapped women free and return to the village with the goblin's head as a trophy.")
       sleep(2)
       input("\nPress enter to continue.")
@@ -108,10 +121,12 @@ def combat1():
         hp += 40
         hpbal()
         sleep(1)
+        clear()
         combat1()
-    else: 
+    else:
         print("\nYou have no more potions!")
         sleep(1)
+        clear()
         combat1()
   else:
       print("\nPlease choose an option.")
@@ -140,13 +155,15 @@ def rest():
     else:
       print("\nEnjoy your stay and sweet dreams...")
       sleep(3)
-      hp = hpthresh 
+      clear()
+      hp = hpthresh
       stuff['gold'] -= 30
       print("\nYou awaken feeling well rested. Your HP has been restored.")
       intown()
   else:
+    clear()
     intown()
-  
+    
 def intown():
   dowhat()
   if idk is '1':
@@ -158,8 +175,10 @@ def intown():
    sleep(1.5)
    print("\nOld Lady: My, what a handsome young man you are! My daughter could use a husband like you. She doesn't want to marry any of the village boys. Perhaps a brave adventurer like you could woo her? But who can think about marriage when there is a goblin that comes into town every night and attacks our cattle and kidnaps our women! Please do something about it. We will be forever grateful. I would buy a sword or bow from the shop and some potions too if you want to stand a chance.")
    input("\nPress enter to return to town.")
+   clear()
    intown()
   elif idk is '4':
+    clear()
     displayinv(stuff)
     intown()
   elif idk is '5':
@@ -178,6 +197,7 @@ def dowhat():
   \n4. View Inventory\
   \n5. Leave\n:")
   idk = whatdo
+  clear()
   
 
 def gamestart():
@@ -208,6 +228,7 @@ def shop1():
       prompt2 = int(input("\nHow many " + prompt + "s " + "would you like to buy?: "))
       if prompt2 < 0:
         print("\nYou can't buy negative things!")
+        clear()
         shop1()
       else:
         goldowe = prompt2*stock[prompt]
@@ -217,6 +238,7 @@ def shop1():
           if stuff['gold'] < goldowe:
             print("\nYou don't have enough money!")
             input("Press enter to go back.")
+            clear()
             shop1()
           else:
             try:
@@ -224,26 +246,32 @@ def shop1():
               stuff['gold'] = stuff['gold'] - goldowe
               print("You bought " + str(prompt2) + " " + prompt)
               input("Press enter to keep shopping.")
+              clear()
               shop1()
             except KeyError:
-              stuff[prompt] = 0 
+              stuff[prompt] = 0
               stuff[prompt] += prompt2
               stuff['gold'] = stuff['gold'] - goldowe
               print("\nYou bought " + str(prompt2) + " " + prompt)
               input("Press enter to keep shopping.")
+              clear()
               shop1()
         else:
           input("\nTransaction cancelled.\nPress enter to go back.")
+          clear()
           shop1()
     elif prompt == 'leave':
+      clear()
       intown()
     else:
       print("\nI'm not selling that.")
       input("\nPress enter to go back")
+      clear()
       shop1()
         
 def area1():
   name = input("\nWelcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness.\nMay I have your name please?: ")
+  clear()
   print("\nGreetings, " + name + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
   sleep(3)
   print("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
@@ -255,4 +283,6 @@ def area1():
 
 
 if __name__ == "__main__":
+    clear()
     gamestart()
+    
