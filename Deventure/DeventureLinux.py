@@ -9,7 +9,7 @@ werewolfhp = 100
 dragonhp = 200
 playerdamdagger = [2,3,4,5]
 playerdamsword = [5,6,7,8,9,10]
-playerdamrapier = [4,6,8,12,16,20]
+playerdamrapier = [4,6,10,14]
 difficulty = ''
 goblindam = [2,4,6,8,10]
 werewolfdam = [5,10,15,20]
@@ -128,6 +128,25 @@ def werewolfturn():
   else:
     combat1()
 
+#Dragon attack turn
+
+def dragonturn():
+  global hp
+  if difficulty == '1':
+    attackdmg = (dragondam[randint(0,3)]*1)
+  elif difficulty == '2':
+    attackdmg = (dragondam[randint(0,3)]*2)
+  elif difficulty == '3':
+    attackdmg = (dragondam[randint(0,3)]*3)
+  print("\nThe dragon bites you for " + str(attackdmg) + " damage.")
+  hp -= (attackdmg-armor)
+  if hp <= 0:
+    clear()
+    print("\nYou have died. You suck (unless this is hard mode) at this game.")
+    gameend()
+  else:
+    combat1()
+
 #Main combat function for the first area
 
 def combat1():
@@ -147,8 +166,8 @@ def combat1():
     except KeyError:
       try:
         if bag['rapier'] > 0:
-          print("\nYou stab the goblin with your rapier for "+str(playerdamrapier[randint(0,5)])+" damage.")
-        goblinhp -= playerdamrapier[randint(0,5)]
+          print("\nYou stab the goblin with your rapier for "+str(playerdamrapier[randint(0,3)])+" damage.")
+        goblinhp -= playerdamrapier[randint(0,3)]
       except KeyError:
           print("\nYou strike the goblin with your dagger for "+str(playerdamdagger[randint(0,3)])+" damage.")
           goblinhp -= playerdamdagger[randint(0,3)]
@@ -221,6 +240,7 @@ def rest():
 
 def intown1():
   global talked1
+  global given1
   dowhat()
   if choice is '1':
     shop1()
@@ -240,6 +260,7 @@ def intown1():
      if given1 is False:
        print("\nYou obtain 1000 gold")
        bag['gold'] += 1000
+       given1 = True
        input("\nPress enter to return to town.")
        clear()
        intown1()
