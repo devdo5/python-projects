@@ -9,7 +9,7 @@ werewolfhp = 100
 dragonhp = 200
 playerdamdagger = [2,3,4,5]
 playerdamsword = [5,6,7,8,9,10]
-playerdamrapier = [4,6,10,14]
+playerdamrapier = [2,4,6,8]
 difficulty = ''
 goblindam = [2,4,6,8,10]
 werewolfdam = [5,10,15,20]
@@ -153,6 +153,7 @@ def combat1():
   global gobdead
   global hp
   global goblinhp
+  global gold
   print("\nYou have "+str(hp)+" health.")
   fight = input("\n1. Attack\
     2. Use potion\n:")
@@ -183,6 +184,9 @@ def combat1():
       sleep(2)
       gobdead = True
       input("\nPress enter to continue.")
+      clear()
+      print("\nWhen you return to town, the villagers welcome you with fanfare. You are showered with flower petals and people shout praises from windows. Feasts and drinking have started all over the village as the celebrations begin. 'Traveler, you are nothing but a blessing for us this day. Please, take this gold as a token of our gratitude. Before you go, please feast and celebrate with us, it is only tradition.'\nYou obtain 1000 gold.")
+      bag['gold'] += 1000
       intown1()
   elif fight == '2':
     if bag['potion'] > 0:
@@ -241,6 +245,7 @@ def rest():
 def intown1():
   global talked1
   global given1
+  global bag
   dowhat()
   if choice is '1':
     shop1()
@@ -256,15 +261,17 @@ def intown1():
      clear()
      intown1()
    else:
-     print("\nOld Lady: My goodness you did it! We will be forever grateful! Please, take this money as a taken of our gratitude. You deserve it.")
      if given1 is False:
-       print("\nYou obtain 1000 gold")
-       bag['gold'] += 1000
+       print("\nOld Lady: My goodness you did it! We will be forever grateful! Please, take this family heirloom as a token of my gratitude!")
+       print("\nYou obtained Ancestral Armor.\nYou armor has increased by 10%.")
+       bag['ancestral armor'] = 1
+       armor += 10
        given1 = True
        input("\nPress enter to return to town.")
        clear()
        intown1()
      else:
+       print("\nThank you for your brave acts, hero. Please, go to the next town and see if they need help. Your work here is done.")
        input("\nPress enter to return to town.")
        clear()
        intown1()
@@ -383,7 +390,7 @@ def area1():
   name = input("\nWelcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness.\nMay I have your name please?: ")
   clear()
   print("\nGreetings, " + name + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
-  sleep(3)
+  input("Press enter to continue.")
   print("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
   intown1()
 
