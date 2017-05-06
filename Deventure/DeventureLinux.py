@@ -273,11 +273,14 @@ def intown1():
     displayinv(bag)
     intown1()
   elif choice is '5':
-    print("\nYou decide to venture out to kill the goblin that is terrorizing the village.\nEventually you find his cave on the mountainside. You step inside and light a torch. The walls are covered in scratches and blood. As you reach the inner sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh in quite a while...looks like it's back on the menu.' 'Come then, your meal awaits,' you say as you draw your weapon. He leaps down from his pile to meet you in combat.")
-    combat1()
-  else:
-    print("Please select a number.")
-    intown1()
+    if goblinhp <= 0:
+      area2()
+    else:
+      print("\nYou decide to venture out to kill the goblin that is terrorizing the village.\nEventually you find his cave on the mountainside. You step inside and light a torch. The walls are covered in scratches and blood. As you reach the inner sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh in quite a while...looks like it's back on the menu.' 'Come then, your meal awaits,' you say as you draw your weapon. He leaps down from his pile to meet you in combat.")
+      combat1()
+    else:
+      print("Please select a number.")
+      intown1()
 
 #Broke down intown into another function for ease, asks player for action and sends to above function
 
