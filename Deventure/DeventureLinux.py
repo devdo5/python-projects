@@ -39,12 +39,28 @@ def resetvars():
     global werewolfhp
     global dragonhp
     global mana
+    global hpthresh
     goblinhp = 60
     werewolfhp = 100
     dragonhp = 200
     hp = 50
+    hpthresh = 100
     mana = 100
-    bag = { 'gold': 300, 'potion': 1, 'dagger': 1}
+    bag = { 'gold': 300, 'health potion': 1, 'dagger': 1, 'mana potion': 1}
+    
+#Balances your HP, if you try to heal more than your total hp, cap it at the total
+
+def hpbal():
+  global hp
+  if hp > hpthresh:
+    hp = hpthresh
+
+#Balances your mana
+
+def manabal():
+  global mana
+  if mana > manathresh:
+    mana = manathresh
     
 #Choose difficulty
 
@@ -66,7 +82,17 @@ def choosediff():
       print("\nPlease select a valid difficulty.")
       choosediff()
     difficulty = choice
-    
+
+#First area function
+
+def area1():
+  name = input("\nWelcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness.\nMay I have your name please?: ")
+  clear()
+  print("\nGreetings, " + name + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
+  input("Press enter to continue.")
+  print("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
+  intown1()
+
 #End game screen
 
 def gameend():
@@ -75,6 +101,21 @@ def gameend():
   clear()
   resetvars()
   gamestart()
+
+ 
+#Displays the player's inventory
+
+def displayinv(inv):
+    print("\nInventory:")
+    for k, v in inv.items():
+        if v > 1:
+            if k == 'gold':
+                print("\n", v, k)
+            else:
+                print("\n", v, k+"s")
+        else:
+            print("\n", v, k)
+            
 
 #Checks to see if the goblin is dead
 
@@ -105,7 +146,7 @@ def goblinturn():
   hp -= (attackdmg)
   if hp <= 0:
     clear()
-    print("\nYou have died. You suck (unless this is hard mode) at this game.")
+    print("\nYou have died.")
     gameend()
   else:
     combat1()
@@ -124,7 +165,7 @@ def werewolfturn():
   hp -= (attackdmg)
   if hp <= 0:
     clear()
-    print("\nYou have died. You suck (unless this is hard mode) at this game.")
+    print("\nYou have died.")
     gameend()
   else:
     combat1()
@@ -143,7 +184,7 @@ def dragonturn():
   hp -= (attackdmg)
   if hp <= 0:
     clear()
-    print("\nYou have died. You suck (unless this is hard mode) at this game.")
+    print("\nYou have died.")
     gameend()
   else:
     combat1()
@@ -244,20 +285,67 @@ def combat1():
   else:
       print("\nPlease choose an option.")
       combat1()
-    
-#Displays the player's inventory
-
-def displayinv(inv):
-    print("\nInventory:")
-    for k, v in inv.items():
-        if v > 1:
-            if k == 'gold':
-                print("\n", v, k)
-            else:
-                print("\n", v, k+"s")
-        else:
-            print("\n", v, k)
             
+#Main shop function
+
+def shop1():
+    global bag
+    stock = {'sword': 100, 'rapier': 75, 'mana potion': 30, 'potion': 50}
+    print("\nWelcome to my shop. These are the items that I am selling today:\n\n1. Bronze Sword: 100 gold\n2. Bronze Rapier: 75 gold\n3. Mana Potion: 30 gold\n4. Potion: 50 gold\n5. Leave")
+    prompt = input("\nWhich item would you like to purchase?: ")
+    if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
+      if prompt == '1':
+        prompt = "sword"
+      elif prompt == '2':
+        prompt = 'rapier'
+      elif prompt == '3':
+        prompt = 'mana potion'
+      elif prompt == '4':
+        prompt = 'potion'
+      prompt2 = int(input("\nHow many " + prompt + "s " + "would you like to buy?: "))
+      if prompt2 < 0:
+        print("\nYou can't buy negative things!")
+        clear()
+        shop1()
+      else:
+        goldowe = prompt2*stock[prompt]
+        print("\nThat will be " + str(goldowe) + " gold.\nYou have " + str(bag['gold']) + " gold.")
+        prompt3 = (input("\nConfirm purchase?: "))
+        if prompt3.lower() == 'yes' or prompt3.lower() == 'y':
+          if bag['gold'] < goldowe:
+            print("\nYou don't have enough money!")
+            input("Press enter to go back.")
+            clear()
+            shop1()
+          else:
+            try:
+              bag[prompt] += prompt2
+              bag['gold'] -= goldowe
+              print("You bought " + str(prompt2) + " " + prompt)
+              input("Press enter to keep shopping.")
+              clear()
+              shop1()
+            except KeyError:
+              bag[prompt] = 0
+              bag[prompt] += prompt2
+              bag['gold'] -= goldowe
+              print("\nYou bought " + str(prompt2) + " " + prompt)
+              input("Press enter to keep shopping.")
+              clear()
+              shop1()
+        else:
+          input("\nTransaction cancelled.\nPress enter to go back.")
+          clear()
+          shop1()
+    elif prompt == '5':
+      clear()
+      intown1()
+    else:
+      print("\nI'm not selling that.")
+      input("\nPress enter to go back")
+      clear()
+      shop1()
+
 #Rest at the inn to fully restore your health
 
 def rest():
@@ -356,91 +444,6 @@ def dowhat():
 def gamestart():
     choosediff()
     area1()
-  
-#Balances your HP, if you try to heal more than your total hp, cap it at the total
-
-def hpbal():
-  global hp
-  if hp > hpthresh:
-    hp = hpthresh
-
-#Balances your mana
-
-def manabal():
-  global mana
-  if mana > manathresh:
-    mana = manathresh
-
-#Main shop function
-
-def shop1():
-    global bag
-    stock = {'sword': 100, 'rapier': 75, 'mana potion': 30, 'potion': 50}
-    print("\nWelcome to my shop. These are the items that I am selling today:\n\n1. Bronze Sword: 100 gold\n2. Bronze Rapier: 75 gold\n3. Mana Potion: 30 gold\n4. Potion: 50 gold\n5. Leave")
-    prompt = input("\nWhich item would you like to purchase?: ")
-    if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
-      if prompt == '1':
-        prompt = "sword"
-      elif prompt == '2':
-        prompt = 'rapier'
-      elif prompt == '3':
-        prompt = 'mana potion'
-      elif prompt == '4':
-        prompt = 'potion'
-      prompt2 = int(input("\nHow many " + prompt + "s " + "would you like to buy?: "))
-      if prompt2 < 0:
-        print("\nYou can't buy negative things!")
-        clear()
-        shop1()
-      else:
-        goldowe = prompt2*stock[prompt]
-        print("\nThat will be " + str(goldowe) + " gold.\nYou have " + str(bag['gold']) + " gold.")
-        prompt3 = (input("\nConfirm purchase?: "))
-        if prompt3.lower() == 'yes' or prompt3.lower() == 'y':
-          if bag['gold'] < goldowe:
-            print("\nYou don't have enough money!")
-            input("Press enter to go back.")
-            clear()
-            shop1()
-          else:
-            try:
-              bag[prompt] += prompt2
-              bag['gold'] -= goldowe
-              print("You bought " + str(prompt2) + " " + prompt)
-              input("Press enter to keep shopping.")
-              clear()
-              shop1()
-            except KeyError:
-              bag[prompt] = 0
-              bag[prompt] += prompt2
-              bag['gold'] -= goldowe
-              print("\nYou bought " + str(prompt2) + " " + prompt)
-              input("Press enter to keep shopping.")
-              clear()
-              shop1()
-        else:
-          input("\nTransaction cancelled.\nPress enter to go back.")
-          clear()
-          shop1()
-    elif prompt == '5':
-      clear()
-      intown1()
-    else:
-      print("\nI'm not selling that.")
-      input("\nPress enter to go back")
-      clear()
-      shop1()
-
-#First area function
-
-def area1():
-  name = input("\nWelcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness.\nMay I have your name please?: ")
-  clear()
-  print("\nGreetings, " + name + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
-  input("Press enter to continue.")
-  print("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
-  intown1()
-
 
 
 #Clears the terminal and starts the game when the file is run directly.
