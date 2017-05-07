@@ -238,7 +238,7 @@ def combat1():
     fight = \
         input("""
 1. Attack
-2. Fireball (20mp)\
+2. Fireball (20mp)
 3. Use health potion
 4. Use mana potion
 :""")
