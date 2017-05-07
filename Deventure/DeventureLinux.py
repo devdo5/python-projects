@@ -16,7 +16,8 @@ werewolfdam = [5,10,15,20]
 dragondam = [10,15,20,25]
 hp = 50
 mana = 100
-bag = { 'gold': 300, 'potion': 1, 'dagger': 1}
+manathresh = 100
+bag = { 'gold': 300, 'health potion': 1, 'mana potion': 1, 'dagger': 1}
 hpthresh = 100
 choice = None
 talked1 = None
@@ -154,26 +155,26 @@ def combat1():
   global hp
   global goblinhp
   global gold
+  global mana
   print("\nYou have "+str(hp)+" health.")
-  fight = input("\n1. Attack\
-    2. Use potion\n:")
+  fight = input("\n1. Attack\n2. Fireball (20mp)\
+    \n3. Use health potion\n4. Use mana potion\n:")
   if fight == '1':
     try:
       if bag['sword'] > 0:
         print("\nYou strike the goblin with your sword for "+str(playerdamsword[randint(0,5)])+" damage.")
         goblinhp -= playerdamsword[randint(0,5)]
-        
         sleep(1)
     except KeyError:
       try:
         if bag['rapier'] > 0:
           print("\nYou stab the goblin with your rapier for "+str(playerdamrapier[randint(0,3)])+" damage.")
         goblinhp -= playerdamrapier[randint(0,3)]
+        sleep(1)
       except KeyError:
           print("\nYou strike the goblin with your dagger for "+str(playerdamdagger[randint(0,3)])+" damage.")
           goblinhp -= playerdamdagger[randint(0,3)]
           sleep(1)
-          clear()
     if isdead1() is False:
         sleep(1)
         clear()
@@ -189,16 +190,54 @@ def combat1():
       bag['gold'] += 1000
       intown1()
   elif fight == '2':
-    if bag['potion'] > 0:
-        print("\n40 health restored with potion.")
-        bag['potion']-= 1
+    if mana >= 20:
+      print("\nYou fireball the goblin for 15 damage.")
+      mana -= 100
+      goblinhp -= 15
+      if isdead1() is False:
+        sleep(1)
+        clear()
+        goblinturn()
+      else:
+        clear()
+        print("\nThe goblin finally dies and falls to the ground as blood pours from its wounds. You deliver a final blow and decapitate him. Inside the cave you set the kidnapped women free and return to the village with the goblin's head as a trophy.")
+        sleep(2)
+        gobdead = True
+        input("\nPress enter to continue.")
+        clear()
+        print("\nWhen you return to town, the villagers welcome you with fanfare. You are showered with flower petals and people shout praises from windows. Feasts and drinking have started all over the village as the celebrations begin. 'Traveler, you are nothing but a blessing for us this day. Please, take this gold as a token of our gratitude. Before you go, please feast and celebrate with us, it is only tradition.'\nYou obtain 1000 gold.")
+        bag['gold'] += 1000
+        intown1()
+    else:
+      print("\nYou don't have enough mana to cast this spell!")
+      sleep(1)
+      clear()
+      combat1()
+  elif fight == '4':
+    if bag['mana potion'] > 0:
+      print("\n40 mana restored with mana potion.")
+      bag['mana potion'] -= 1
+      mana += 40
+      manabal()
+      sleep(1)
+      clear()
+      combat1()
+    else:
+      print("\nYou have no more mana potions!")
+      sleep(1)
+      clear()
+      combat1()
+  elif fight == '3':
+    if bag['health potion'] > 0:
+        print("\n40 health restored with health potion.")
+        bag['health potion']-= 1
         hp += 40
         hpbal()
         sleep(1)
         clear()
         combat1()
     else:
-        print("\nYou have no more potions!")
+        print("\nYou have no more health potions!")
         sleep(1)
         clear()
         combat1()
@@ -246,6 +285,7 @@ def intown1():
   global talked1
   global given1
   global bag
+  global hpthresh
   dowhat()
   if choice is '1':
     shop1()
@@ -323,6 +363,13 @@ def hpbal():
   global hp
   if hp > hpthresh:
     hp = hpthresh
+
+#Balances your mana
+
+def manabal():
+  global mana
+  if mana > manathresh:
+    mana = manathresh
 
 #Main shop function
 
