@@ -1,4 +1,3 @@
-# I was really tired and rushed and couldn't give a fuck to make this look good, sorry to whoever is reading this (probably future me)
 from time import sleep
 from random import randint
 from os import system
