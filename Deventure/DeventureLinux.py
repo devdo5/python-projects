@@ -281,7 +281,7 @@ You obtain 1000 gold.""")
     elif fight == '2':
         if mana >= 20:
             print ('\nYou fireball the goblin for 15 damage.')
-            mana -= 100
+            mana -= 20
             goblinhp -= 15
             if isdead1() is False:
                 sleep(1)
