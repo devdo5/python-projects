@@ -234,7 +234,7 @@ def combat1():
     global goblinhp
     global gold
     global mana
-    print ('\nYou have ' + str(hp) + ' health.')
+    print ('\nYou have ' + str(hp) + ' health and ' + str(mana) + '.')
     fight = \
         input("""
 1. Attack
