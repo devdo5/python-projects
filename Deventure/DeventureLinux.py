@@ -16,7 +16,6 @@ werewolfdam = [5,10,15,20]
 dragondam = [10,15,20,25]
 hp = 50
 mana = 100
-armor = 0
 bag = { 'gold': 300, 'potion': 1, 'dagger': 1}
 hpthresh = 100
 choice = None
@@ -37,12 +36,13 @@ def resetvars():
     global hp
     global bag
     global werewolfhp
+    global dragonhp
+    global mana
     goblinhp = 60
     werewolfhp = 100
     dragonhp = 200
     hp = 50
     mana = 100
-    armor = 0
     bag = { 'gold': 300, 'potion': 1, 'dagger': 1}
     
 #Choose difficulty
@@ -101,7 +101,7 @@ def goblinturn():
   elif difficulty == '3':
     attackdmg = (goblindam[randint(0,4)]*3)
   print("\nThe goblin attacks you for " + str(attackdmg) + " damage.")
-  hp -= (attackdmg-armor)
+  hp -= (attackdmg)
   if hp <= 0:
     clear()
     print("\nYou have died. You suck (unless this is hard mode) at this game.")
@@ -120,7 +120,7 @@ def werewolfturn():
   elif difficulty == '3':
     attackdmg = (werewolfdam[randint(0,3)]*3)
   print("\nThe werewolf slashes you for " + str(attackdmg) + " damage.")
-  hp -= (attackdmg-armor)
+  hp -= (attackdmg)
   if hp <= 0:
     clear()
     print("\nYou have died. You suck (unless this is hard mode) at this game.")
@@ -139,7 +139,7 @@ def dragonturn():
   elif difficulty == '3':
     attackdmg = (dragondam[randint(0,3)]*3)
   print("\nThe dragon bites you for " + str(attackdmg) + " damage.")
-  hp -= (attackdmg-armor)
+  hp -= (attackdmg)
   if hp <= 0:
     clear()
     print("\nYou have died. You suck (unless this is hard mode) at this game.")
@@ -265,7 +265,7 @@ def intown1():
        print("\nOld Lady: My goodness you did it! We will be forever grateful! Please, take this family heirloom as a token of my gratitude!")
        print("\nYou obtained Ancestral Armor.\nYou armor has increased by 10%.")
        bag['ancestral armor'] = 1
-       armor += 10
+       hpthresh += 10
        given1 = True
        input("\nPress enter to return to town.")
        clear()
