@@ -84,7 +84,9 @@ def manabal():
 
 def choosediff():
     global difficulty
-    print('\nWelcome to Deventure. This is a text based turn style role playing game. Just follow the on screen instructions and enter the number of your choice. Thanks for playing.')
+    print('\nWelcome to Deventure. This is a text based turn style role playing\
+ game. Just follow the on screen instructions and enter the number of your\
+ choice.')
     choice = \
         input("""
 Choose a difficulty.\
@@ -101,7 +103,8 @@ Choose a difficulty.\
     elif choice == '2':
         print ('\nMedium difficulty selected. Have fun.')
     elif choice == '3':
-        print ("\nImpossible difficulty selected. Good luck, you'll need it.")
+        print ("\nImpossible difficulty selected. Good luck, you'll\
+        need it.")
     else:
         print ('\nPlease select a valid difficulty.')
         choosediff()
@@ -113,20 +116,28 @@ Choose a difficulty.\
 def area1():
     name = \
         input("""
-Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness.
-May I have your name please?: """)
+Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
+ your guide. His Majesty King Devon has decree that all travellers must be\
+ treated with utmost respect and kindness.
+ May I have your name please?: """)
     clear()
     print ('\nGreetings, ' + name \
-        + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
+        + ". Follow me to the nearest village where you can rest and stock\
+ up on supplies. You seem injured, you're only at half hp! I would\
+ go to the inn and have a rest to restore your health.")
     input('Press enter to continue.')
-    print ("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
+    print ("\nWelcome to Dev-ville. This is my home village, i've lived here\
+ all my life! Why don't you have a look around? I highly recommend talking\
+ to the locals for jobs.")
     intown1()
 
 
 # End game screen
 
 def gameend():
-    print ('\nThanks for playing. If you have any feedback just email me at dev@udel.edu. Keep up with further updates at www.udel.edu/~dev/. Please send money.')
+    print ('\nThanks for playing. If you have any feedback just email me at\
+ dev@udel.edu. Keep up with further updates at www.udel.edu/~dev/. Please\
+ send money.')
     input('\nPress enter to play again.')
     clear()
     resetvars()
@@ -182,8 +193,7 @@ def goblinturn():
         print ('\nYou have died.')
         gameend()
     else:
-        combat1()
-
+        combatuu1()
 
 # Werewolf attack turn
 
@@ -268,13 +278,21 @@ def combat1():
             goblinturn()
         else:
             clear()
-            print ("\nThe goblin finally dies and falls to the ground as blood pours from its wounds. You deliver a final blow and decapitate him. Inside the cave you set the kidnapped women free and return to the village with the goblin's head as a trophy.")
+            print ("\nThe goblin finally dies and falls to the ground as blood\
+ pours from its wounds. You deliver a final blow and decapitate him.\
+ Inside the cave you set the kidnapped women free and return to the\
+ village with the goblin's head as a trophy.")
             sleep(2)
             gobdead = True
             input('\nPress enter to continue.')
             clear()
             print ("""
-When you return to town, the villagers welcome you with fanfare. You are showered with flower petals and people shout praises from windows. Feasts and drinking have started all over the village as the celebrations begin. 'Traveler, you are nothing but a blessing for us this day. Please, take this gold as a token of our gratitude. Before you go, please feast and celebrate with us, it is only tradition.'
+When you return to town, the villagers welcome you with fanfare. You are \
+showered with flower petals and people shout praises from windows. Feasts and\
+ drinking have started all over the village as the celebrations begin. 'Traveler\
+, you are nothing but a blessing for us this day. Please, take this gold as a\
+ token of our gratitude. Before you go, please feast and celebrate with us, it\
+ is only tradition.'
 You obtain 1000 gold.""")
             bag['gold'] += 1000
             intown1()
@@ -289,13 +307,22 @@ You obtain 1000 gold.""")
                 goblinturn()
             else:
                 clear()
-                print ("\nThe goblin finally dies and falls to the ground as blood pours from its wounds. You deliver a final blow and decapitate him. Inside the cave you set the kidnapped women free and return to the village with the goblin's head as a trophy.")
+                print ("\nThe goblin finally dies and falls to the ground as\
+ blood pours from its wounds. You deliver a final blow and \
+decapitate him. Inside the cave you set the kidnapped women\
+ free and return to the village with the goblin's head as a\
+ trophy.")
                 sleep(2)
                 gobdead = True
                 input('\nPress enter to continue.')
                 clear()
                 print ("""
-When you return to town, the villagers welcome you with fanfare. You are showered with flower petals and people shout praises from windows. Feasts and drinking have started all over the village as the celebrations begin. 'Traveler, you are nothing but a blessing for us this day. Please, take this gold as a token of our gratitude. Before you go, please feast and celebrate with us, it is only tradition.'
+When you return to town, the villagers welcome you with fanfare. You are\
+ showered with flower petals and people shout praises from windows. Feasts\
+ and drinking have started all over the village as the celebrations begin.\
+ 'Traveler, you are nothing but a blessing for us this day. Please, take this\
+ gold as a token of our gratitude. Before you go, please feast and celebrate \
+with us, it is only tradition.'
 You obtain 1000 gold.""")
                 bag['gold'] += 1000
                 intown1()
@@ -421,7 +448,8 @@ Press enter to go back.''')
 def rest():
     global hp
     sleepornah = \
-        input('\nWelcome to the inn, a room for the night costs 30 gold. You have '
+        input('\nWelcome to the inn, a room for the night costs 30 gold. \
+        You have '
                + str(bag['gold'])
               + ' gold. \nWould you like to rent a room?: ')
     if sleepornah.lower() == 'yes' or sleepornah.lower() == 'y':
@@ -434,7 +462,8 @@ def rest():
             clear()
             hp = hpthresh
             bag['gold'] -= 30
-            print ('\nYou awaken feeling well rested. Your HP has been restored.')
+            print ('\nYou awaken feeling well rested. Your HP has been \
+            restored.')
             intown1()
     else:
         clear()
@@ -457,14 +486,23 @@ def intown1():
         print ('\nYou decide to talk to the locals...')
         sleep(1.5)
         if gobdead is False:
-            print ("\nOld Lady: My, what a handsome young man you are! My daughter could use a husband like you. She doesn't want to marry any of the village boys. Perhaps a brave adventurer like you could woo her? But who can think about marriage when there is a goblin that comes into town every night and attacks our cattle and kidnaps our women! Please do something about it. We will be forever grateful. I would buy a better weapon from the shop and some potions too if you want to stand a chance!")
+            print ("\nOld Lady: My, what a handsome young man you are! My \
+daughter could use a husband like you. She doesn't want to marry\
+ any of the village boys. Perhaps a brave adventurer like you could\
+ woo her? But who can think about marriage when there is a goblin\
+ that comes into town every night and attacks our cattle and kidnaps\
+ our women! Please do something about it. We will be forever grateful.\
+ I would buy a better weapon from the shop and some potions too if you\
+ want to stand a chance!")
             talked1 = True
             input('\nPress enter to return to town.')
             clear()
             intown1()
         else:
             if given1 is False:
-                print ('\nOld Lady: My goodness you did it! We will be forever grateful! Please, take this family heirloom as a token of my gratitude!')
+                print ('\nOld Lady: My goodness you did it! We will be forever\
+ grateful! Please, take this family heirloom as a token of my\
+ gratitude!')
                 print ('''
 You obtained Ancestral Armor.
 You armor has increased by 10%.''')
@@ -475,7 +513,9 @@ You armor has increased by 10%.''')
                 clear()
                 intown1()
             else:
-                print ('\nThank you for your brave acts, hero. Please, go to the next town and see if they need help. Your work here is done.')
+                print ('\nThank you for your brave acts, hero. Please, go\
+ to the next town and see if they need help. Your work here\
+ is done.')
                 input('\nPress enter to return to town.')
                 clear()
                 intown1()
@@ -489,14 +529,20 @@ You armor has increased by 10%.''')
         else:
             print ("""
 You decide to venture out to kill the goblin that is terrorizing the village.
-Eventually you find his cave on the mountainside. You step inside and light a torch. The walls are covered in scratches and blood. As you reach the inner sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh in quite a while...looks like it's back on the menu.' 'Come then, your meal awaits,' you say as you draw your weapon. He leaps down from his pile to meet you in combat.""")
+Eventually you find his cave on the mountainside. You step inside and light\
+ a torch. The walls are covered in scratches and blood. As you reach the inner\
+ sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
+ smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh\
+ in quite a while...looks like it's back on the menu.' 'Come then, your meal\
+ awaits,' you say as you draw your weapon. He leaps down from his pile to\
+ meet you in combat.""")
             combat1()
     else:
         print ('Please select a number.')
         intown1()
 
 
-# Broke down intown into another function for ease, asks player for action and sends to above function
+# Broke down intown into another function for ease
 
 def dowhat():
     global choice
