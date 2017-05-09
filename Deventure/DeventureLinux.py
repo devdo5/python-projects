@@ -97,7 +97,7 @@ Choose a difficulty.\
     
 3. Impossible\
     
-: """)
+> """)
     if choice == '1':
         print ('\nEasy difficulty selected...you baby.')
     elif choice == '2':
@@ -119,13 +119,13 @@ def area1():
 Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
  your guide. His Majesty King Devon has decree that all travellers must be\
  treated with utmost respect and kindness.
- May I have your name please?: """)
+ May I have your name please?\n>  """)
     clear()
     print ('\nGreetings, ' + name \
         + ". Follow me to the nearest village where you can rest and stock\
  up on supplies. You seem injured, you're only at half hp! I would\
  go to the inn and have a rest to restore your health.")
-    input('Press enter to continue.')
+    input('\nPress enter to continue.')
     print ("\nWelcome to Dev-ville. This is my home village, i've lived here\
  all my life! Why don't you have a look around? I highly recommend talking\
  to the locals for jobs.")
@@ -151,13 +151,12 @@ def displayinv(inv):
     for (k, v) in inv.items():
         if v > 1:
             if k == 'gold':
-                print ('\n', v, k)
+                print (v, k)
             else:
-                print ('\n', v, k + 's')
+                print (v, k + 's')
         else:
-            print ('\n', v, k)
-
-
+            print (v, k)
+    print("\nStats:\n" + str(hp) + " HP\n" + str(mana) +" Mana")
 # Checks to see if the goblin is dead
 
 def isdead1():
@@ -193,7 +192,7 @@ def goblinturn():
         print ('\nYou have died.')
         gameend()
     else:
-        combatuu1()
+        combat1()
 
 # Werewolf attack turn
 
@@ -251,7 +250,7 @@ def combat1():
 2. Fireball (20mp)
 3. Use health potion
 4. Use mana potion
-:""")
+> """)
     if fight == '1':
         try:
             if bag['sword'] > 0:
@@ -290,10 +289,14 @@ def combat1():
 When you return to town, the villagers welcome you with fanfare. You are \
 showered with flower petals and people shout praises from windows. Feasts and\
  drinking have started all over the village as the celebrations begin. 'Traveler\
-, you are nothing but a blessing for us this day. Please, take this gold as a\
+ you are nothing but a blessing for us this day. Please, take this gold as a\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
- is only tradition.'
-You obtain 1000 gold.""")
+ is only tradition.
+
+You obtain 1000 gold.
+
+The old lady from earlier beckons you over to speak with her again.
+""")
             bag['gold'] += 1000
             intown1()
     elif fight == '2':
@@ -317,12 +320,12 @@ decapitate him. Inside the cave you set the kidnapped women\
                 input('\nPress enter to continue.')
                 clear()
                 print ("""
-When you return to town, the villagers welcome you with fanfare. You are\
- showered with flower petals and people shout praises from windows. Feasts\
- and drinking have started all over the village as the celebrations begin.\
- 'Traveler, you are nothing but a blessing for us this day. Please, take this\
- gold as a token of our gratitude. Before you go, please feast and celebrate \
-with us, it is only tradition.'
+When you return to town, the villagers welcome you with fanfare. You are \
+showered with flower petals and people shout praises from windows. Feasts and\
+ drinking have started all over the village as the celebrations begin. 'Traveler\
+ you are nothing but a blessing for us this day. Please, take this gold as a\
+ token of our gratitude. Before you go, please feast and celebrate with us, it\
+ is only tradition. The old lady from earlier beckons you to go over and speak with her again.
 You obtain 1000 gold.""")
                 bag['gold'] += 1000
                 intown1()
@@ -372,7 +375,7 @@ def shop1():
         'sword': 100,
         'rapier': 75,
         'mana potion': 30,
-        'potion': 50,
+        'health potion': 50,
         }
     print ('''
 Welcome to my shop. These are the items that I am selling today:
@@ -380,9 +383,9 @@ Welcome to my shop. These are the items that I am selling today:
 1. Bronze Sword: 100 gold
 2. Bronze Rapier: 75 gold
 3. Mana Potion: 30 gold
-4. Potion: 50 gold
+4. Health Potion: 50 gold
 5. Leave''')
-    prompt = input('\nWhich item would you like to purchase?: ')
+    prompt = input('\nWhich item would you like to purchase?\n> ')
     if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
         if prompt == '1':
             prompt = 'sword'
@@ -391,48 +394,55 @@ Welcome to my shop. These are the items that I am selling today:
         elif prompt == '3':
             prompt = 'mana potion'
         elif prompt == '4':
-            prompt = 'potion'
-        prompt2 = int(input('\nHow many ' + prompt + 's '
-                      + 'would you like to buy?: '))
-        if prompt2 < 0:
-            print ("\nYou can't buy negative things!")
-            clear()
-            shop1()
-        else:
-            goldowe = prompt2 * stock[prompt]
-            print ('\nThat will be ' + str(goldowe) \
-                + ' gold.\nYou have ' + str(bag['gold']) + ' gold.')
-            prompt3 = input('\nConfirm purchase?: ')
-            if prompt3.lower() == 'yes' or prompt3.lower() == 'y':
-                if bag['gold'] < goldowe:
-                    print ("\nYou don't have enough money!")
-                    input('Press enter to go back.')
-                    clear()
-                    shop1()
-                else:
-                    try:
-                        bag[prompt] += prompt2
-                        bag['gold'] -= goldowe
-                        print ('You bought ' + str(prompt2) + ' ' \
-                            + prompt)
-                        input('Press enter to keep shopping.')
-                        clear()
-                        shop1()
-                    except KeyError:
-                        bag[prompt] = 0
-                        bag[prompt] += prompt2
-                        bag['gold'] -= goldowe
-                        print ('\nYou bought ' + str(prompt2) + ' ' \
-                            + prompt)
-                        input('Press enter to keep shopping.')
-                        clear()
-                        shop1()
-            else:
-                input('''
-Transaction cancelled.
-Press enter to go back.''')
+            prompt = 'health potion'
+        prompt2 = (input('\nHow many ' + prompt + 's '
+                      + 'would you like to buy?\n> '))
+        try:
+            prompt2 = int(prompt2)
+            if prompt2 < 0:
+                print ("\nYou can't buy negative things!")
                 clear()
                 shop1()
+            else:
+                goldowe = prompt2 * stock[prompt]
+                print ('\nThat will be ' + str(goldowe) \
+                    + ' gold.\nYou have ' + str(bag['gold']) + ' gold.')
+                prompt3 = input('\nConfirm purchase?\n> ')
+                if prompt3.lower() == 'yes' or prompt3.lower() == 'y':
+                    if bag['gold'] < goldowe:
+                        print ("\nYou don't have enough money!")
+                        input('Press enter to go back.')
+                        clear()
+                        shop1()
+                    else:
+                        try:
+                            bag[prompt] += prompt2
+                            bag['gold'] -= goldowe
+                            print ('You bought ' + str(prompt2) + ' ' \
+                                + prompt)
+                            input('Press enter to keep shopping.')
+                            clear()
+                            shop1()
+                        except KeyError:
+                            bag[prompt] = 0
+                            bag[prompt] += prompt2
+                            bag['gold'] -= goldowe
+                            print ('\nYou bought ' + str(prompt2) + ' ' \
+                                + prompt)
+                            input('Press enter to keep shopping.')
+                            clear()
+                            shop1()
+                else:
+                    input('''
+Transaction cancelled.
+Press enter to go back.''')
+                    clear()
+                    shop1()
+        except ValueError:
+            print("\nPlease enter a number.")
+            input("\nPress enter to go back")
+            clear()
+            shop1()
     elif prompt == '5':
         clear()
         intown1()
@@ -447,11 +457,12 @@ Press enter to go back.''')
 
 def rest():
     global hp
+    global mana
     sleepornah = \
         input('\nWelcome to the inn, a room for the night costs 30 gold. \
-        You have '
+You have '
                + str(bag['gold'])
-              + ' gold. \nWould you like to rent a room?: ')
+              + ' gold. \nWould you like to rent a room?\n> ')
     if sleepornah.lower() == 'yes' or sleepornah.lower() == 'y':
         if bag['gold'] < 30:
             print ("\nYou don't have enough money.")
@@ -461,9 +472,10 @@ def rest():
             sleep(3)
             clear()
             hp = hpthresh
+            mana = manathresh
             bag['gold'] -= 30
-            print ('\nYou awaken feeling well rested. Your HP has been \
-            restored.')
+            print ('\nYou awaken feeling well rested. Your HP and Mana have been \
+restored.')
             intown1()
     else:
         clear()
@@ -502,7 +514,8 @@ daughter could use a husband like you. She doesn't want to marry\
             if given1 is False:
                 print ('\nOld Lady: My goodness you did it! We will be forever\
  grateful! Please, take this family heirloom as a token of my\
- gratitude!')
+ gratitude! Now please, go to the next town and see if they need any\
+ help.')
                 print ('''
 You obtained Ancestral Armor.
 You armor has increased by 10%.''')
@@ -557,10 +570,10 @@ What would you like to do?\
     
 3. Talk\
     
-4. View Inventory\
+4. View Inventory/Stats\
     
 5. Leave Town
-:""")
+> """)
         choice = whatdo
         clear()
     else:
@@ -574,8 +587,8 @@ What would you like to do?\
     
 3. Talk\
     
-4. View Inventory
-""")
+4. View Inventory/Stats
+> """)
         choice = whatdo
         clear()
 
