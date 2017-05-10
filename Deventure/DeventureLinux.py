@@ -131,6 +131,19 @@ Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
  to the locals for jobs.")
     intown1()
 
+# Second area function
+
+def wizardencounter():
+    clear()
+    input("You head out of town as the villagers say their last goodbyes. Feeling content and ready to leave, you head out into the wilderness towards the next town...\n\nPress enter to continue")
+    clear()
+    input("After walking through the forest for what seems like hours, you hear a scream coming from up ahead...\n'SOMEONE HELP ME, PLEASE ANYONE!' You run through the thick brush into a clearing and see an old man in robes trying to fend off a huge cyclops with only a stick. 'PLEASE HELP ME, MY BAG IS OVER THERE. THROW ME A MANA POTION!' \nYou look around for his satchel and rush over. Inside are a bunch of books and vials, you find the shiny blue liquid and throw it to him. He catches it with surprising agility and dodges a cyclops fist before downing the entire thing in one gulp.\n\nPress enter to continue")
+    clear()
+    input("His eyes glow blue and he looks to have gained some energy. He turns to the cyclops and yells 'FIREBALL!' A bright flame appears in between his hands and in one swift motion he flings it at the monster. It screams across the clearing and collides with the cyclops in a fiery explosion. The monster can't seem to get it off as it sticks like napalm. In a series of gut wrenching screams, the cyclops burns alive into a puddle of molten skin and bones. The wizard takes a deep breath and sits on the ground.\n\nPress enter to continue")
+    clear()
+    input("He walks up to you, relieved. 'Am I glad that you arrived, traveller. I am truly grateful for your assistance. How unlucky to be caught out of mana by a cyclops. I'm not as young as a I used to be.' He strokes his beard while examining you closely. 'Are you attuned to the fine arts, by any chance? I can sense magical potential inside you.' He thinks for a moment, then rummages though his bag and hands you a book. 'It's getting dark, I better get going. Here have a book as a token of my thanks. You can just read it on your spare time. May our paths cross again!' He had a sly grin on his face as he handed it to you and walked into the trees...\nPress enter to continue")
+    clear()
+    input("You look at the book. It's bound by leather and has intricate markings and shapes on the front. The pages inside are all blank. 'Crazy old man...' you think to yourself. Suddenly, ancient inscriptions appear on the pages with a purple glow. You can't read them but for some reason they have meaning. Your heart starts beating hard and your blood feels hot like fire in your veins. Your fingertips burn as if they are close to burning coals. Your head rushes as if a strong wind is blowing inside of it. A loud thunderclap ends the process and book turns into ash in your hands.\n\nYou have learned Fireball.\n\nPress enter to continue")
 
 # End game screen
 
@@ -538,7 +551,8 @@ You armor has increased by 10%.''')
         intown1()
     elif choice is '5':
         if goblinhp <= 0:
-            area2()
+            wizardencounter()
+
         else:
             print ("""
 You decide to venture out to kill the goblin that is terrorizing the village.
