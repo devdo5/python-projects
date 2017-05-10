@@ -379,6 +379,136 @@ You obtain 1000 gold.""")
         print ('\nPlease choose an option.')
         combat1()
 
+# Second area combat function
+
+def combat2():
+    global isdead2
+    global hp
+    global werewolfhp
+    global gold
+    global mana
+    print ('\nYou have ' + str(hp) + ' health and ' + str(mana) + ' mana.')
+    fight = \
+        input("""
+1. Attack
+2. Fireball (20mp)
+3. Use health potion
+4. Use mana potion
+> """)
+    if fight == '1':
+        try:
+            if bag['sword'] > 0:
+                print ('\nYou strike the werewolf with your sword for ' \
+                    + str(playerdamsword[randint(0, 5)]) + ' damage.')
+                werewolfhp -= playerdamsword[randint(0, 5)]
+                sleep(1.5)
+        except KeyError:
+            try:
+                if bag['rapier'] > 0:
+                    print ('\nYou stab the werewolf with your rapier for ' \
+                        + str(playerdamrapier[randint(0, 3)]) \
+                        + ' damage.')
+                werewolfhp -= playerdamrapier[randint(0, 3)]
+                sleep(1.5)
+            except KeyError:
+                print ('\nYou strike the werewolf with your dagger for ' \
+                    + str(playerdamdagger[randint(0, 3)]) + ' damage.')
+                werewolfhp -= playerdamdagger[randint(0, 3)]
+                sleep(1)
+        if isdead2() is False:
+            sleep(1.5)
+            clear()
+            werewolfturn()
+        else:
+            clear()
+            print ("\nThe werewolf finally dies and falls to the ground as blood\
+ pours from its wounds. You deliver a final blow and decapitate him.\
+ Inside the cave you set the kidnapped women free and return to the\
+ village with the goblin's head as a trophy.")
+            sleep(2)
+            input('\nPress enter to continue.')
+            clear()
+            print ("""
+When you return to town, the villagers welcome you with fanfare. You are \
+showered with flower petals and people shout praises from windows. Feasts and\
+ drinking have started all over the village as the celebrations begin. 'Traveler\
+ you are nothing but a blessing for us this day. Please, take this gold as a\
+ token of our gratitude. Before you go, please feast and celebrate with us, it\
+ is only tradition.
+
+You obtain 1000 gold.
+
+The old lady from earlier beckons you over to speak with her again.
+""")
+            bag['gold'] += 1000
+            intown1()
+    elif fight == '2':
+        if mana >= 20:
+            print ('\nYou fireball the werewolf for 15 damage.')
+            mana -= 20
+            werewolfhp -= 15
+            if isdead2() is False:
+                sleep(1)
+                clear()
+                werewolfturn()
+            else:
+                clear()
+                print ("\nThe goblin finally dies and falls to the ground as\
+ blood pours from its wounds. You deliver a final blow and \
+decapitate him. Inside the cave you set the kidnapped women\
+ free and return to the village with the goblin's head as a\
+ trophy.")
+                sleep(2)
+                input('\nPress enter to continue.')
+                clear()
+                print ("""
+When you return to town, the villagers welcome you with fanfare. You are \
+showered with flower petals and people shout praises from windows. Feasts and\
+ drinking have started all over the village as the celebrations begin. 'Traveler\
+ you are nothing but a blessing for us this day. Please, take this gold as a\
+ token of our gratitude. Before you go, please feast and celebrate with us, it\
+ is only tradition. The old lady from earlier beckons you to go over and speak with her again.
+You obtain 1000 gold.""")
+                bag['gold'] += 1000
+                intown1()
+        else:
+            print ("\nYou don't have enough mana to cast this spell!")
+            sleep(1)
+            clear()
+            combat2()
+    elif fight == '4':
+        if bag['mana potion'] > 0:
+            print ('\n40 mana restored with mana potion.')
+            bag['mana potion'] -= 1
+            mana += 40
+            manabal()
+            sleep(1)
+            clear()
+            combat2()
+        else:
+            print ('\nYou have no more mana potions!')
+            sleep(1)
+            clear()
+            combat2()
+    elif fight == '3':
+        if bag['health potion'] > 0:
+            print ('\n40 health restored with health potion.')
+            bag['health potion'] -= 1
+            hp += 40
+            hpbal()
+            sleep(1)
+            clear()
+            combat2()
+        else:
+            print ('\nYou have no more health potions!')
+            sleep(1)
+            clear()
+            combat2()
+    else:
+        print ('\nPlease choose an option.')
+        combat2()
+
+
 
 # Main shop function
 
@@ -552,6 +682,7 @@ You armor has increased by 10%.''')
     elif choice is '5':
         if goblinhp <= 0:
             wizardencounter()
+            combat2()
 
         else:
             print ("""
