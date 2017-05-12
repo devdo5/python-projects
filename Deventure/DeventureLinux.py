@@ -157,7 +157,7 @@ def gameend():
     gamestart()
 
 
-# Displays the player's inventory
+# Displays the player's inventory and stats
 
 def displayinv(inv):
     print ('\nInventory:')
@@ -225,7 +225,7 @@ def werewolfturn():
         print ('\nYou have died.')
         gameend()
     else:
-        combat1()
+        combat2()
 
 
 # Dragon attack turn
@@ -245,7 +245,7 @@ def dragonturn():
         print ('\nYou have died.')
         gameend()
     else:
-        combat1()
+        combat3()
 
 
 # Main combat function for the first area
@@ -255,14 +255,11 @@ def combat1():
     global hp
     global goblinhp
     global gold
-    global mana
-    print ('\nYou have ' + str(hp) + ' health and ' + str(mana) + ' mana.')
+    print ('\nYou have ' + str(hp) + ' health.')
     fight = \
         input("""
 1. Attack
-2. Fireball (20mp)
-3. Use health potion
-4. Use mana potion
+2. Use health potion
 > """)
     if fight == '1':
         try:
@@ -306,62 +303,13 @@ showered with flower petals and people shout praises from windows. Feasts and\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
  is only tradition.
 
-You obtain 1000 gold.
+\nYou obtain 1000 gold.
 
 The old lady from earlier beckons you over to speak with her again.
 """)
             bag['gold'] += 1000
             intown1()
     elif fight == '2':
-        if mana >= 20:
-            print ('\nYou fireball the goblin for 15 damage.')
-            mana -= 20
-            goblinhp -= 15
-            if isdead1() is False:
-                sleep(1)
-                clear()
-                goblinturn()
-            else:
-                clear()
-                print ("\nThe goblin finally dies and falls to the ground as\
- blood pours from its wounds. You deliver a final blow and \
-decapitate him. Inside the cave you set the kidnapped women\
- free and return to the village with the goblin's head as a\
- trophy.")
-                sleep(2)
-                gobdead = True
-                input('\nPress enter to continue.')
-                clear()
-                print ("""
-When you return to town, the villagers welcome you with fanfare. You are \
-showered with flower petals and people shout praises from windows. Feasts and\
- drinking have started all over the village as the celebrations begin. 'Traveler\
- you are nothing but a blessing for us this day. Please, take this gold as a\
- token of our gratitude. Before you go, please feast and celebrate with us, it\
- is only tradition. The old lady from earlier beckons you to go over and speak with her again.
-You obtain 1000 gold.""")
-                bag['gold'] += 1000
-                intown1()
-        else:
-            print ("\nYou don't have enough mana to cast this spell!")
-            sleep(1)
-            clear()
-            combat1()
-    elif fight == '4':
-        if bag['mana potion'] > 0:
-            print ('\n40 mana restored with mana potion.')
-            bag['mana potion'] -= 1
-            mana += 40
-            manabal()
-            sleep(1)
-            clear()
-            combat1()
-        else:
-            print ('\nYou have no more mana potions!')
-            sleep(1)
-            clear()
-            combat1()
-    elif fight == '3':
         if bag['health potion'] > 0:
             print ('\n40 health restored with health potion.')
             bag['health potion'] -= 1
