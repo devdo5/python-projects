@@ -6,6 +6,7 @@ from os import system
 
 #########GLOBAL VARIABLES###################
 
+name = None
 goblinhp = 60
 werewolfhp = 100
 dragonhp = 200
@@ -27,9 +28,10 @@ bag = {
     }
 hpthresh = 100
 choice = None
-talked1 = None
+talked = False
 gobdead = False
-given1 = False
+given = False
+
 
 
 ############################################
@@ -50,6 +52,14 @@ def resetvars():
     global dragonhp
     global mana
     global hpthresh
+    global given
+    global gobdead
+    global talked
+    global choice
+    given = False
+    gobdead = False
+    talked = False
+    choice = None
     goblinhp = 60
     werewolfhp = 100
     dragonhp = 200
@@ -86,7 +96,7 @@ def choosediff():
     global difficulty
     print('\nWelcome to Deventure. This is a text based turn style role playing\
  game. Just follow the on screen instructions and enter the number of your\
- choice.')
+ choice. Keep in mind that if your terminal is too small, you may need to scroll up to be able to read everything.')
     choice = \
         input("""
 Choose a difficulty.\
@@ -114,12 +124,13 @@ Choose a difficulty.\
 # First area function
 
 def area1():
+    global name
     name = \
         input("""
 Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
  your guide. His Majesty King Devon has decree that all travellers must be\
  treated with utmost respect and kindness.
- May I have your name please?\n>  """)
+ May I have your name please?\n> """)
     clear()
     print ('\nGreetings, ' + name \
         + ". Follow me to the nearest village where you can rest and stock\
@@ -137,13 +148,19 @@ def wizardencounter():
     clear()
     input("You head out of town as the villagers say their last goodbyes. Feeling content and ready to leave, you head out into the wilderness towards the next town...\n\nPress enter to continue")
     clear()
-    input("After walking through the forest for what seems like hours, you hear a scream coming from up ahead...\n'SOMEONE HELP ME, PLEASE ANYONE!' You run through the thick brush into a clearing and see an old man in robes trying to fend off a huge cyclops with only a stick. 'PLEASE HELP ME, MY BAG IS OVER THERE. THROW ME A MANA POTION!' \nYou look around for his satchel and rush over. Inside are a bunch of books and vials, you find the shiny blue liquid and throw it to him. He catches it with surprising agility and dodges a cyclops fist before downing the entire thing in one gulp.\n\nPress enter to continue")
+    input("You hear a commotion up ahead and run to see what it is. An old man is being attack by a cyclops in a small clearing. 'PLEASE, THROW ME A MANA POTION FROM MY BAG!' You look around for his bag, find the glowing blue vial and toss it to him. He downs it in one gulp and his eyes glow blue with vigor. He turns to the cyclops and in one swift motion, launches a flaming projectile at it. It explodes and splashes all over the creature like napalm. The cyclops desperately tries to get the flames off but to no avail. Eventually it is reduced to a pile of melted flesh and bones.\n\nPress enter to continue")
     clear()
-    input("His eyes glow blue and he looks to have gained some energy. He turns to the cyclops and yells 'FIREBALL!' A bright flame appears in between his hands and in one swift motion he flings it at the monster. It screams across the clearing and collides with the cyclops in a fiery explosion. The monster can't seem to get it off as it sticks like napalm. In a series of gut wrenching screams, the cyclops burns alive into a puddle of molten skin and bones. The wizard takes a deep breath and sits on the ground.\n\nPress enter to continue")
-    clear()
-    input("He walks up to you, relieved. 'Am I glad that you arrived, traveller. I am truly grateful for your assistance. How unlucky to be caught out of mana by a cyclops. I'm not as young as a I used to be.' He strokes his beard while examining you closely. 'Are you attuned to the fine arts, by any chance? I can sense magical potential inside you.' He thinks for a moment, then rummages though his bag and hands you a book. 'It's getting dark, I better get going. Here have a book as a token of my thanks. You can just read it on your spare time. May our paths cross again!' He had a sly grin on his face as he handed it to you and walked into the trees...\nPress enter to continue")
+    input("The man walks up to you, relieved. 'Am I glad that you arrived, traveller. I am truly grateful for your assistance. How unlucky to be caught out of mana by a cyclops. I'm not as young as a I used to be.' He strokes his beard while examining you closely. 'Are you attuned to the fine arts, by any chance? I can sense magical potential inside you.' He thinks for a moment, then rummages though his bag and hands you a book. 'It's getting dark, I better get going. Here have a book as a token of my thanks. You can just read it on your spare time. May our paths cross again!' He had a sly grin on his face as he handed it to you and walked into the trees...\n\nPress enter to continue")
     clear()
     input("You look at the book. It's bound by leather and has intricate markings and shapes on the front. The pages inside are all blank. 'Crazy old man...' you think to yourself. Suddenly, ancient inscriptions appear on the pages with a purple glow. You can't read them but for some reason they have meaning. Your heart starts beating hard and your blood feels hot like fire in your veins. Your fingertips burn as if they are close to burning coals. Your head rushes as if a strong wind is blowing inside of it. A loud thunderclap ends the process and book turns into ash in your hands.\n\nYou have learned Fireball.\n\nPress enter to continue")
+
+# Second area function
+
+def area2():
+    clear()
+    input("Eventually you happen upon the next village. Slightly bigger than the previous; this village actually has a small wall around it. At the gate, you try to walk right in but are met by some guards. 'Halt, outsider. What brings you here?' Before you can say anything, the second guard asks,'Oi hold on, aren't you " + name + "? The Goblin Slayer? Come right in then! the Governor would like to speak with you immediately!\n\nPress enter to continue")
+    clear()
+
 
 # End game screen
 
@@ -416,7 +433,7 @@ showered with flower petals and people shout praises from windows. Feasts and\
  you are nothing but a blessing for us this day. Please, take this gold as a\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
  is only tradition. The old lady from earlier beckons you to go over and speak with her again.
-You obtain 1000 gold.""")
+\nYou obtain 1000 gold.""")
                 bag['gold'] += 1000
                 intown1()
         else:
@@ -473,18 +490,15 @@ Welcome to my shop. These are the items that I am selling today:
 
 1. Bronze Sword: 100 gold
 2. Bronze Rapier: 75 gold
-3. Mana Potion: 30 gold
-4. Health Potion: 50 gold
-5. Leave''')
+3. Health Potion: 50 gold
+4. Leave''')
     prompt = input('\nWhich item would you like to purchase?\n> ')
-    if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
+    if prompt == '1' or prompt == '2' or prompt == '3':
         if prompt == '1':
             prompt = 'sword'
         elif prompt == '2':
             prompt = 'rapier'
         elif prompt == '3':
-            prompt = 'mana potion'
-        elif prompt == '4':
             prompt = 'health potion'
         prompt2 = (input('\nHow many ' + prompt + 's '
                       + 'would you like to buy?\n> '))
@@ -534,7 +548,7 @@ Press enter to go back.''')
             input("\nPress enter to go back")
             clear()
             shop1()
-    elif prompt == '5':
+    elif prompt == '4':
         clear()
         intown1()
     else:
@@ -576,8 +590,8 @@ restored.')
 # Main function for being in town
 
 def intown1():
-    global talked1
-    global given1
+    global talked
+    global given
     global bag
     global hpthresh
     dowhat()
@@ -597,12 +611,12 @@ daughter could use a husband like you. She doesn't want to marry\
  our women! Please do something about it. We will be forever grateful.\
  I would buy a better weapon from the shop and some potions too if you\
  want to stand a chance!")
-            talked1 = True
+            talked = True
             input('\nPress enter to return to town.')
             clear()
             intown1()
         else:
-            if given1 is False:
+            if given is False:
                 print ('\nOld Lady: My goodness you did it! We will be forever\
  grateful! Please, take this family heirloom as a token of my\
  gratitude! Now please, go to the next town and see if they need any\
@@ -612,7 +626,7 @@ You obtained Ancestral Armor.
 You armor has increased by 10%.''')
                 bag['ancestral armor'] = 1
                 hpthresh += 10
-                given1 = True
+                given = True
                 input('\nPress enter to return to town.')
                 clear()
                 intown1()
@@ -630,6 +644,7 @@ You armor has increased by 10%.''')
     elif choice is '5':
         if goblinhp <= 0:
             wizardencounter()
+            area2()
             combat2()
 
         else:
@@ -652,7 +667,7 @@ Eventually you find his cave on the mountainside. You step inside and light\
 
 def dowhat():
     global choice
-    if talked1 is True:
+    if talked is True:
         whatdo = \
             input("""
 What would you like to do?\
@@ -685,6 +700,8 @@ What would you like to do?\
         choice = whatdo
         clear()
 
+def dowhat2():
+    global choice2
 
 # Starts the game
 
