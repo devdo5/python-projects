@@ -6,7 +6,7 @@ from os import system
 
 #########GLOBAL VARIABLES###################
 
-name = None
+name = ''
 goblinhp = 60
 werewolfhp = 100
 dragonhp = 200
@@ -29,7 +29,7 @@ bag = {
 hpthresh = 100
 choice = None
 talked = False
-gobdead = False
+bossdead = False
 given = False
 
 
@@ -39,7 +39,7 @@ given = False
 # Clear screen function (Linux)
 
 def clear():
-    system('printf "\033c"')
+  print("c")
 
 
 # Resets variables if you play again
@@ -53,11 +53,11 @@ def resetvars():
     global mana
     global hpthresh
     global given
-    global gobdead
+    global bossdead
     global talked
     global choice
     given = False
-    gobdead = False
+    bossdead = False
     talked = False
     choice = None
     goblinhp = 60
@@ -145,6 +145,8 @@ Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
 # Second area function
 
 def wizardencounter():
+    global bossdead
+    bossdead = False
     clear()
     input("You head out of town as the villagers say their last goodbyes. Feeling content and ready to leave, you head out into the wilderness towards the next town...\n\nPress enter to continue")
     clear()
@@ -153,13 +155,6 @@ def wizardencounter():
     input("The man walks up to you, relieved. 'Am I glad that you arrived, traveller. I am truly grateful for your assistance. How unlucky to be caught out of mana by a cyclops. I'm not as young as a I used to be.' He strokes his beard while examining you closely. 'Are you attuned to the fine arts, by any chance? I can sense magical potential inside you.' He thinks for a moment, then rummages though his bag and hands you a book. 'It's getting dark, I better get going. Here have a book as a token of my thanks. You can just read it on your spare time. May our paths cross again!' He had a sly grin on his face as he handed it to you and walked into the trees...\n\nPress enter to continue")
     clear()
     input("You look at the book. It's bound by leather and has intricate markings and shapes on the front. The pages inside are all blank. 'Crazy old man...' you think to yourself. Suddenly, ancient inscriptions appear on the pages with a purple glow. You can't read them but for some reason they have meaning. Your heart starts beating hard and your blood feels hot like fire in your veins. Your fingertips burn as if they are close to burning coals. Your head rushes as if a strong wind is blowing inside of it. A loud thunderclap ends the process and book turns into ash in your hands.\n\nYou have learned Fireball.\n\nPress enter to continue")
-
-# Second area function
-
-def area2():
-    clear()
-    input("Eventually you happen upon the next village. Slightly bigger than the previous; this village actually has a small wall around it. At the gate, you try to walk right in but are met by some guards. 'Halt, outsider. What brings you here?' Before you can say anything, the second guard asks,'Oi hold on, aren't you " + name + "? The Goblin Slayer? Come right in then! the Governor would like to speak with you immediately!\n\nPress enter to continue")
-    clear()
 
 
 # End game screen
@@ -268,7 +263,7 @@ def dragonturn():
 # Main combat function for the first area
 
 def combat1():
-    global gobdead
+    global bossdead
     global hp
     global goblinhp
     global gold
@@ -309,7 +304,7 @@ def combat1():
  Inside the cave you set the kidnapped women free and return to the\
  village with the goblin's head as a trophy.")
             sleep(2)
-            gobdead = True
+            bossdead = True
             input('\nPress enter to continue.')
             clear()
             print ("""
@@ -560,7 +555,7 @@ Press enter to go back.''')
 
 # Rest at the inn to fully restore your health
 
-def rest():
+def rest1():
     global hp
     global mana
     sleepornah = \
@@ -586,7 +581,31 @@ restored.')
         clear()
         intown1()
 
-
+def rest2():
+    global hp
+    global mana
+    sleepornah = \
+        input('\nWelcome to the inn, a room for the night costs 30 gold. \
+You have '
+               + str(bag['gold'])
+              + ' gold. \nWould you like to rent a room?\n> ')
+    if sleepornah.lower() == 'yes' or sleepornah.lower() == 'y':
+        if bag['gold'] < 30:
+            print ("\nYou don't have enough money.")
+            intown2()
+        else:
+            print ('\nEnjoy your stay and sweet dreams...')
+            sleep(3)
+            clear()
+            hp = hpthresh
+            mana = manathresh
+            bag['gold'] -= 30
+            print ('\nYou awaken feeling well rested. Your HP and Mana have been \
+restored.')
+            intown2()
+    else:
+        clear()
+        intown2()
 # Main function for being in town
 
 def intown1():
@@ -598,11 +617,11 @@ def intown1():
     if choice is '1':
         shop1()
     elif choice is '2':
-        rest()
+        rest1()
     elif choice is '3':
         print ('\nYou decide to talk to the locals...')
         sleep(1.5)
-        if gobdead is False:
+        if bossdead is False:
             print ("\nOld Lady: My, what a handsome young man you are! My \
 daughter could use a husband like you. She doesn't want to marry\
  any of the village boys. Perhaps a brave adventurer like you could\
@@ -646,7 +665,6 @@ You armor has increased by 10%.''')
             wizardencounter()
             area2()
             combat2()
-
         else:
             print ("""
 You decide to venture out to kill the goblin that is terrorizing the village.
@@ -662,6 +680,148 @@ Eventually you find his cave on the mountainside. You step inside and light\
         print ('Please select a number.')
         intown1()
 
+def shop2():
+    global bag
+    stock = {
+        'sword': 200,
+        'rapier': 150,
+        'mana potion': 60,
+        'health potion': 100,
+        }
+    print ('''
+Welcome to my shop. These are the items that I am selling today:
+
+1. Silver Sword: 200 gold
+2. Silver Rapier: 150 gold
+3. Health Potion: 100 gold
+4. Mana Potion: 60 gold
+5. Leave''')
+    prompt = input('\nWhich item would you like to purchase?\n> ')
+    if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
+        if prompt == '1':
+            prompt = 'sword'
+        elif prompt == '2':
+            prompt = 'rapier'
+        elif prompt == '3':
+            prompt = 'health potion'
+        elif prompt == '4':
+            prompt = 'mana potion'
+        prompt2 = (input('\nHow many ' + prompt + 's '
+                      + 'would you like to buy?\n> '))
+        try:
+            prompt2 = int(prompt2)
+            if prompt2 < 0:
+                print ("\nYou can't buy negative things!")
+                clear()
+                shop2()
+            else:
+                goldowe = prompt2 * stock[prompt]
+                print ('\nThat will be ' + str(goldowe) \
+                    + ' gold.\nYou have ' + str(bag['gold']) + ' gold.')
+                prompt3 = input('\nConfirm purchase?\n> ')
+                if prompt3.lower() == 'yes' or prompt3.lower() == 'y':
+                    if bag['gold'] < goldowe:
+                        print ("\nYou don't have enough money!")
+                        input('Press enter to go back.')
+                        clear()
+                        shop2()
+                    else:
+                        try:
+                            bag[prompt] += prompt2
+                            bag['gold'] -= goldowe
+                            print ('You bought ' + str(prompt2) + ' ' \
+                                + prompt)
+                            input('Press enter to keep shopping.')
+                            clear()
+                            shop2()
+                        except KeyError:
+                            bag[prompt] = 0
+                            bag[prompt] += prompt2
+                            bag['gold'] -= goldowe
+                            print ('\nYou bought ' + str(prompt2) + ' ' \
+                                + prompt)
+                            input('Press enter to keep shopping.')
+                            clear()
+                            shop2()
+                else:
+                    input('''
+Transaction cancelled.
+Press enter to go back.''')
+                    clear()
+                    shop2()
+        except ValueError:
+            print("\nPlease enter a number.")
+            input("\nPress enter to go back")
+            clear()
+            shop2()
+    elif prompt == '5':
+        clear()
+        intown2()
+    else:
+        print ("\nI'm not selling that.")
+        input('\nPress enter to go back')
+        clear()
+        shop2()
+
+def intown2():
+    global talked
+    global given
+    global bag
+    global hpthresh
+    bossdead = False
+    dowhat()
+    if choice is '1':
+        shop2()
+    elif choice is '2':
+        rest2()
+    elif choice is '3':
+        print ('\nYou decide to talk to the locals...')
+        sleep(1.5)
+        if bossdead is False:
+            print ("\nGovernor: The Goblin Slayer himself! What brings you to Devista huh? Don't even tell me, because I know. You came here to slay that damned werewolf that's been killing our hunters. We're worried that he might attack the town one night. These walls are good against humans but that creature can jump over it. There will be a hefty reward if you bring me his head. Our town shop is well stocked with silver weapons, they are way stronger than those silly bronze weapons. Stay safe out there!")
+            talked = True
+            input('\nPress enter to return to town.')
+            clear()
+            intown2()
+        else:
+            if given is False:
+                print ("\nGovernor: Well I'll be damned, you actually did it! I'll be honest I thought you were dead.")
+                print ('''
+You obtained the rank of Thane of Devista and the Werewolf Pelt.
+Your armor has increased by 10%''')
+                bag['werewolf pelt'] = 1
+                hpthresh += 10
+                given = True
+                input('\nPress enter to return to town.')
+                clear()
+                intown2()
+            else:
+                print ("\n If it isn't my favorite (and only) Thane! How are you my friend. I hear the women love your rank, don't use that to your advantage hehe. Anyway, I hear the town over is dealing with some sort of monster related issue. I would go over there and check it out. Now that you're " + name + " The Goblin and Werewolf Slayer! Good luck out there.")
+                input('\nPress enter to return to town.')
+                clear()
+                intown2()
+    elif choice is '4':
+        clear()
+        displayinv(bag)
+        intown2()
+    elif choice is '5':
+        if werewolfhp <= 0:
+    
+            area3()
+        else:
+            print ("""
+You decide to venture out to kill the NIGGER that is terrorizing the village.\
+ Eventually you find his cave on the mountainside. You step inside and light\
+ a torch. The walls are covered in scratches and blood. As you reach the inner\
+ sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
+ smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh\
+ in quite a while...looks like it's back on the menu.' 'Come then, your meal\
+ awaits,' you say as you draw your weapon. He leaps down from his pile to\
+ meet you in combat.""")
+            combat2()
+    else:
+        print ('Please select a number.')
+        intown1()
 
 # Broke down intown into another function for ease
 
@@ -699,9 +859,13 @@ What would you like to do?\
 > """)
         choice = whatdo
         clear()
+# Second area function
 
-def dowhat2():
-    global choice2
+def area2():
+    clear()
+    input("Eventually you happen upon the next village. Slightly bigger than the previous; this village actually has a small wall around it. At the gate, you try to walk right in but are met by some guards. 'Halt, outsider. What brings you here?' Before you can say anything, the second guard asks,'Oi hold on, aren't you " + name + "? The Goblin Slayer? Come right in then! the Governor would like to speak with you immediately!\n\nPress enter to continue")
+    clear()
+    intown2()
 
 # Starts the game
 
