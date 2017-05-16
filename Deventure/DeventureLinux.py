@@ -182,6 +182,8 @@ def displayinv(inv):
         else:
             print (v, k)
     print("\nStats:\n" + str(hp) + " HP\n" + str(mana) +" Mana")
+
+
 # Checks to see if the goblin is dead
 
 def isdead1():
@@ -342,7 +344,7 @@ The old lady from earlier beckons you over to speak with her again.
 # Second area combat function
 
 def combat2():
-    global isdead2
+    global bossdead
     global hp
     global werewolfhp
     global gold
@@ -385,6 +387,7 @@ def combat2():
  pours from its wounds. You deliver a final blow and decapitate him.\
  Inside the cave you set the kidnapped women free and return to the\
  village with the goblin's head as a trophy.")
+            bossdead = True
             sleep(2)
             input('\nPress enter to continue.')
             clear()
@@ -475,8 +478,8 @@ showered with flower petals and people shout praises from windows. Feasts and\
 def shop1():
     global bag
     stock = {
-        'sword': 100,
-        'rapier': 75,
+        'bronze sword': 100,
+        'bronze rapier': 75,
         'mana potion': 30,
         'health potion': 50,
         }
@@ -683,8 +686,8 @@ Eventually you find his cave on the mountainside. You step inside and light\
 def shop2():
     global bag
     stock = {
-        'sword': 200,
-        'rapier': 150,
+        'silver sword': 200,
+        'silver rapier': 150,
         'mana potion': 60,
         'health potion': 100,
         }
