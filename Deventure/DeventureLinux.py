@@ -6,14 +6,14 @@ from os import system
 
 #########GLOBAL VARIABLES###################
 
-name = ''
+name = None
 goblinhp = 60
 werewolfhp = 100
 dragonhp = 200
 playerdamdagger = [2, 3, 4, 5]
 playerdamsword = [5, 6, 7, 8, 9, 10,]
 playerdamrapier = [2, 4, 6, 8]
-difficulty = ''
+difficulty = None
 goblindam = [2, 4, 6, 8, 10]
 werewolfdam = [5, 10, 15, 20]
 dragondam = [10, 15, 20, 25]
@@ -151,6 +151,8 @@ Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
 
 def wizardencounter():
     global bossdead
+    global talked
+    talked = False
     bossdead = False
     clear()
     input("You head out of town as the villagers say their last goodbyes. Feeling content and ready to leave, you head out into the wilderness towards the next town...\n\nPress enter to continue")
@@ -323,11 +325,11 @@ showered with flower petals and people shout praises from windows. Feasts and\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
  is only tradition.
 
-\nYou obtain 1000 gold.
+\nYou obtain 300 gold.
 
 The old lady from earlier beckons you over to speak with her again.
 """)
-            bag['gold'] += 1000
+            bag['gold'] += 300
             intown1()
     elif fight == '2':
         if bag['health potion'] > 0:
@@ -365,18 +367,18 @@ def combat2():
 > """)
     if fight == '1':
         try:
-            if bag['sword'] > 0:
-                print ('\nYou strike the werewolf with your sword for ' \
+            if bag['silver sword'] > 0:
+                print ('\nYou strike the werewolf with your silver sword for ' \
                     + str(playerdamsword[randint(0, 5)]) + ' damage.')
-                werewolfhp -= playerdamsword[randint(0, 5)]
+                werewolfhp -= playerdamsword[randint(0, 5)]*1.5
                 sleep(1.5)
         except KeyError:
             try:
-                if bag['rapier'] > 0:
-                    print ('\nYou stab the werewolf with your rapier for ' \
+                if bag['silver rapier'] > 0:
+                    print ('\nYou stab the werewolf with your silver rapier for ' \
                         + str(playerdamrapier[randint(0, 3)]) \
                         + ' damage.')
-                werewolfhp -= playerdamrapier[randint(0, 3)]
+                werewolfhp -= playerdamrapier[randint(0, 3)]*1.5
                 sleep(1.5)
             except KeyError:
                 print ('\nYou strike the werewolf with your dagger for ' \
@@ -405,11 +407,11 @@ showered with flower petals and people shout praises from windows. Feasts and\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
  is only tradition.
 
-You obtain 1000 gold.
+You obtain 300 gold.
 
 The old lady from earlier beckons you over to speak with her again.
 """)
-            bag['gold'] += 1000
+            bag['gold'] += 300
             intown1()
     elif fight == '2':
         if mana >= 20:
@@ -437,8 +439,8 @@ showered with flower petals and people shout praises from windows. Feasts and\
  you are nothing but a blessing for us this day. Please, take this gold as a\
  token of our gratitude. Before you go, please feast and celebrate with us, it\
  is only tradition. The old lady from earlier beckons you to go over and speak with her again.
-\nYou obtain 1000 gold.""")
-                bag['gold'] += 1000
+\nYou obtain 300 gold.""")
+                bag['gold'] += 300
                 intown1()
         else:
             print ("\nYou don't have enough mana to cast this spell!")
@@ -651,7 +653,7 @@ daughter could use a husband like you. She doesn't want to marry\
  help.')
                 print ('''
 You obtained Ancestral Armor.
-You armor has increased by 10%.''')
+You max hp has increased by 10%.''')
                 bag['ancestral armor'] = 1
                 hpthresh += 10
                 given = True
@@ -787,8 +789,15 @@ def intown2():
         print ('\nYou decide to talk to the locals...')
         sleep(1.5)
         if bossdead is False:
-            print ("\nGovernor: The Goblin Slayer himself! What brings you to Devista huh? Don't even tell me, because I know. You came here to slay that damned werewolf that's been killing our hunters. We're worried that he might attack the town one night. These walls are good against humans but that creature can jump over it. There will be a hefty reward if you bring me his head. Our town shop is well stocked with silver weapons, they are way stronger than those silly bronze weapons. Stay safe out there!")
+            print ("\nGovernor: The Goblin Slayer himself! What brings you to Devista huh? Don't even tell me, because I know. You came here to slay that damned werewolf that's been killing our hunters. We're worried that he might attack the town one night. These walls are good against humans but that creature can jump over it. There will be a hefty reward if you bring me his head. Give me those bronze weapons, useless garbage they are. Heres some money, go buy some silver weapons from the town shop. They should do some damage to the werewolf. Stay safe out there!\
+\n\nBronze Weapons removed, 100 gold obtained.")
             talked = True
+            if bag['bronze sword'] > 0:
+              del bag['bronze sword']
+              if bag['bronze rapier'] > 0:
+                del bag['bronze rapier']
+            elif bag['bronze rapier'] > 0:
+                del bag['bronze rapier']
             input('\nPress enter to return to town.')
             clear()
             intown2()
