@@ -108,6 +108,7 @@ Choose a difficulty.\
 3. Impossible\
     
 > """)
+    difficulty = choice
     if choice == '1':
         print ('\nEasy difficulty selected...you baby.')
     elif choice == '2':
@@ -118,8 +119,7 @@ Choose a difficulty.\
     else:
         print ('\nPlease select a valid difficulty.')
         choosediff()
-    difficulty = choice
-
+    
 
 # First area function
 
@@ -165,9 +165,10 @@ def wizardencounter():
 # End game screen
 
 def gameend():
-    print ('\nThanks for playing. If you have any feedback just email me at\
+    print ("\nThanks for playing. If you're feeling like a cheater, enter 'ImAcheater'\
+ as your name if you play again. Any feedback? Just email me at\
  dev@udel.edu. Keep up with further updates at www.udel.edu/~dev/. Please\
- send money.')
+ send money.")
     input('\nPress enter to play again.')
     clear()
     resetvars()
@@ -282,14 +283,14 @@ def combat1():
 > """)
     if fight == '1':
         try:
-            if bag['sword'] > 0:
+            if bag['bronze sword'] > 0:
                 print ('\nYou strike the goblin with your sword for ' \
                     + str(playerdamsword[randint(0, 5)]) + ' damage.')
                 goblinhp -= playerdamsword[randint(0, 5)]
                 sleep(1)
         except KeyError:
             try:
-                if bag['rapier'] > 0:
+                if bag['bronze rapier'] > 0:
                     print ('\nYou stab the goblin with your rapier for ' \
                         + str(playerdamrapier[randint(0, 3)]) \
                         + ' damage.')
@@ -498,9 +499,9 @@ Welcome to my shop. These are the items that I am selling today:
     prompt = input('\nWhich item would you like to purchase?\n> ')
     if prompt == '1' or prompt == '2' or prompt == '3':
         if prompt == '1':
-            prompt = 'sword'
+            prompt = 'bronze sword'
         elif prompt == '2':
-            prompt = 'rapier'
+            prompt = 'bronze rapier'
         elif prompt == '3':
             prompt = 'health potion'
         prompt2 = (input('\nHow many ' + prompt + 's '
@@ -707,9 +708,9 @@ Welcome to my shop. These are the items that I am selling today:
     prompt = input('\nWhich item would you like to purchase?\n> ')
     if prompt == '1' or prompt == '2' or prompt == '3' or prompt == '4':
         if prompt == '1':
-            prompt = 'sword'
+            prompt = 'silver sword'
         elif prompt == '2':
-            prompt = 'rapier'
+            prompt = 'silver rapier'
         elif prompt == '3':
             prompt = 'health potion'
         elif prompt == '4':
@@ -814,11 +815,10 @@ Your armor has increased by 10%''')
         intown2()
     elif choice is '5':
         if werewolfhp <= 0:
-    
             area3()
         else:
             print ("""
-You decide to venture out to kill the NIGGER that is terrorizing the village.\
+You decide to venture out to kill the Goblin that is terrorizing the village.\
  Eventually you find his cave on the mountainside. You step inside and light\
  a torch. The walls are covered in scratches and blood. As you reach the inner\
  sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
@@ -829,7 +829,7 @@ You decide to venture out to kill the NIGGER that is terrorizing the village.\
             combat2()
     else:
         print ('Please select a number.')
-        intown1()
+        intown2()
 
 # Broke down intown into another function for ease
 
