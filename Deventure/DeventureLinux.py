@@ -96,7 +96,7 @@ def choosediff():
     global difficulty
     print('\nWelcome to Deventure. This is a text based turn style role playing\
  game. Just follow the on screen instructions and enter the number of your\
- choice. Keep in mind that if your terminal is too small, you may need to scroll up to be able to read everything.')
+ choice. I highly recommend you fullscreen your terminal/command prompt to be able to read everything.')
     choice = \
         input("""
 Choose a difficulty.\
@@ -124,6 +124,7 @@ Choose a difficulty.\
 # First area function
 
 def area1():
+    global bag
     global name
     name = \
         input("""
@@ -132,6 +133,10 @@ Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
  treated with utmost respect and kindness.
  May I have your name please?\n> """)
     clear()
+    if name == 'ImAcheater':
+        cheatergold = int(input("\nOk you sly devil, you wanna cheat huh? This isn't really a game that benefits from this kinda thing, I mean the game gives you enough money already. Whatever, just type how much gold you want you greedy bastard.\n>"))
+        bag['gold'] += cheatergold
+        clear()
     print ('\nGreetings, ' + name \
         + ". Follow me to the nearest village where you can rest and stock\
  up on supplies. You seem injured, you're only at half hp! I would\
