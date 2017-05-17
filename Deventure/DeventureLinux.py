@@ -286,14 +286,14 @@ def combat1():
     if fight == '1':
         try:
             if bag['bronze sword'] > 0:
-                print ('\nYou strike the goblin with your sword for ' \
+                print ('\nYou strike the goblin with your bronze sword for ' \
                     + str(playerdamsword[randint(0, 5)]) + ' damage.')
                 goblinhp -= playerdamsword[randint(0, 5)]
                 sleep(1)
         except KeyError:
             try:
                 if bag['bronze rapier'] > 0:
-                    print ('\nYou stab the goblin with your rapier for ' \
+                    print ('\nYou stab the goblin with your bronze rapier for ' \
                         + str(playerdamrapier[randint(0, 3)]) \
                         + ' damage.')
                 goblinhp -= playerdamrapier[randint(0, 3)]
@@ -369,14 +369,14 @@ def combat2():
         try:
             if bag['silver sword'] > 0:
                 print ('\nYou strike the werewolf with your silver sword for ' \
-                    + str(playerdamsword[randint(0, 5)]) + ' damage.')
+                    + str(playerdamsword[randint(0, 5)]*1.5) + ' damage.')
                 werewolfhp -= playerdamsword[randint(0, 5)]*1.5
                 sleep(1.5)
         except KeyError:
             try:
                 if bag['silver rapier'] > 0:
                     print ('\nYou stab the werewolf with your silver rapier for ' \
-                        + str(playerdamrapier[randint(0, 3)]) \
+                        + str(playerdamrapier[randint(0, 3)]*1.5) \
                         + ' damage.')
                 werewolfhp -= playerdamrapier[randint(0, 3)]*1.5
                 sleep(1.5)
@@ -391,27 +391,22 @@ def combat2():
             werewolfturn()
         else:
             clear()
-            print ("\nThe werewolf finally dies and falls to the ground as blood\
- pours from its wounds. You deliver a final blow and decapitate him.\
- Inside the cave you set the kidnapped women free and return to the\
- village with the goblin's head as a trophy.")
+            print ("\nThe werewolf staggers backwards and falls over. Its\
+ dark brown fur stained red with blood. You know it used to be a human,\
+ but it needs to be put out of its misery. You kill it and drag the body\
+ back to the village.")
             bossdead = True
             sleep(2)
             input('\nPress enter to continue.')
             clear()
             print ("""
-When you return to town, the villagers welcome you with fanfare. You are \
-showered with flower petals and people shout praises from windows. Feasts and\
- drinking have started all over the village as the celebrations begin. 'Traveler\
- you are nothing but a blessing for us this day. Please, take this gold as a\
- token of our gratitude. Before you go, please feast and celebrate with us, it\
- is only tradition.
-
-You obtain 300 gold.
-
-The old lady from earlier beckons you over to speak with her again.
+The guards hastily open the gate when they see you approaching with the\
+ dead monster. 'Bloody hell, he's bigger than I thought.', one of them says.\
+ More guards come and hang the carcass up onto a pole and begin skinning it.\
+ Apparently in Devista, werewolf pelts are a sign of power, and the bones are\
+ ground into medicine. A messenger arrives and tells you that the Governor\
+ wants to speak with you again.
 """)
-            bag['gold'] += 300
             intown1()
     elif fight == '2':
         if mana >= 20:
@@ -424,23 +419,22 @@ The old lady from earlier beckons you over to speak with her again.
                 werewolfturn()
             else:
                 clear()
-                print ("\nThe goblin finally dies and falls to the ground as\
- blood pours from its wounds. You deliver a final blow and \
-decapitate him. Inside the cave you set the kidnapped women\
- free and return to the village with the goblin's head as a\
- trophy.")
+                print ("\nThe werewolf staggers backwards and falls over. Its\
+ dark brown fur stained red with blood. You know it used to be a human,\
+ but it needs to be put out of its misery. You kill it and drag the body\
+ back to the village.")
+                bossdead = True
                 sleep(2)
                 input('\nPress enter to continue.')
                 clear()
                 print ("""
-When you return to town, the villagers welcome you with fanfare. You are \
-showered with flower petals and people shout praises from windows. Feasts and\
- drinking have started all over the village as the celebrations begin. 'Traveler\
- you are nothing but a blessing for us this day. Please, take this gold as a\
- token of our gratitude. Before you go, please feast and celebrate with us, it\
- is only tradition. The old lady from earlier beckons you to go over and speak with her again.
-\nYou obtain 300 gold.""")
-                bag['gold'] += 300
+The guards hastily open the gate when they see you approaching with the\
+ dead monster. 'Bloody hell, he's bigger than I thought.', one of them says.\
+ More guards come and hang the carcass up onto a pole and begin skinning it.\
+ Apparently in Devista, werewolf pelts are a sign of power, and the bones are\
+ ground into medicine. A messenger arrives and tells you that the Governor\
+ wants to speak with you again.
+""")
                 intown1()
         else:
             print ("\nYou don't have enough mana to cast this spell!")
@@ -675,7 +669,6 @@ You max hp has increased by 10%.''')
         if goblinhp <= 0:
             wizardencounter()
             area2()
-            combat2()
         else:
             print ("""
 You decide to venture out to kill the goblin that is terrorizing the village.
@@ -779,7 +772,6 @@ def intown2():
     global given
     global bag
     global hpthresh
-    bossdead = False
     dowhat()
     if choice is '1':
         shop2()
@@ -803,7 +795,13 @@ def intown2():
             intown2()
         else:
             if given is False:
-                print ("\nGovernor: Well I'll be damned, you actually did it! I'll be honest I thought you were dead.")
+                print ("\nGovernor: Well I'll be damned, you actually did it!\
+ I'll be honest I thought you were dead. You've done me a great service and\
+ saved me many men and resources. For that, I shall grant you the title of\
+ Thane of Devista. That's like one rank under me, but above everyone else.\
+ Don't let it get to your head though. Here, we skinned the pelt and thought\
+ you should have it. It's pretty thick and should keep you warm and protected.\
+ Also it looks pretty stylish. Enjoy!")
                 print ('''
 You obtained the rank of Thane of Devista and the Werewolf Pelt.
 Your armor has increased by 10%''')
@@ -827,7 +825,7 @@ Your armor has increased by 10%''')
             area3()
         else:
             print ("""
-You decide to venture out to kill the Goblin that is terrorizing the village.\
+You decide to venture out to kill the werewolf that is terrorizing the village.\
  Eventually you find his cave on the mountainside. You step inside and light\
  a torch. The walls are covered in scratches and blood. As you reach the inner\
  sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
