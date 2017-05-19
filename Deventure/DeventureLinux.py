@@ -94,9 +94,8 @@ def manabal():
 
 def choosediff():
     global difficulty
-    print('\nWelcome to Deventure. This is a text based turn style role playing\
- game. Just follow the on screen instructions and enter the number of your\
- choice. I highly recommend you fullscreen your terminal/command prompt to be able to read everything.')
+    print('''\nWelcome to Deventure. This is a text based turn style role playing game. Just follow the on screen instructions and enter the number of yourchoice. I highly recommend you fullscreen your terminal/command prompt to be able to read everything.
+        ''')
     choice = \
         input("""
 Choose a difficulty.\
@@ -114,8 +113,7 @@ Choose a difficulty.\
     elif choice == '2':
         print ('\nMedium difficulty selected. Have fun.')
     elif choice == '3':
-        print ("\nImpossible difficulty selected. Good luck, you'll\
-        need it.")
+        print ("\nImpossible difficulty selected. Good luck, you'll need it.")
     else:
         print ('\nPlease select a valid difficulty.')
         choosediff()
@@ -127,24 +125,15 @@ def area1():
     global bag
     global name
     name = \
-        input("""
-Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be\
- your guide. His Majesty King Devon has decree that all travellers must be\
- treated with utmost respect and kindness.
- May I have your name please?\n> """)
+        input("""Welcome to the Land of Devonia young traveller, my name is Jacob and i'll be your guide. His Majesty King Devon has decree that all travellers must be treated with utmost respect and kindness. May I have your name please?\n> """)
     clear()
     if name == 'ImAcheater':
         cheatergold = int(input("\nOk you sly devil, you wanna cheat huh? This isn't really a game that benefits from this kinda thing, I mean the game gives you enough money already. Whatever, just type how much gold you want you greedy bastard.\n>"))
         bag['gold'] += cheatergold
         clear()
-    print ('\nGreetings, ' + name \
-        + ". Follow me to the nearest village where you can rest and stock\
- up on supplies. You seem injured, you're only at half hp! I would\
- go to the inn and have a rest to restore your health.")
+    print ('\nGreetings, ' + name + ". Follow me to the nearest village where you can rest and stock up on supplies. You seem injured, you're only at half hp! I would go to the inn and have a rest to restore your health.")
     input('\nPress enter to continue.')
-    print ("\nWelcome to Dev-ville. This is my home village, i've lived here\
- all my life! Why don't you have a look around? I highly recommend talking\
- to the locals for jobs.")
+    print ("\nWelcome to Dev-ville. This is my home village, i've lived here all my life! Why don't you have a look around? I highly recommend talking to the locals for jobs.")
     intown1()
 
 # Second area function
@@ -167,10 +156,7 @@ def wizardencounter():
 # End game screen
 
 def gameend():
-    print ("\nThanks for playing. If you're feeling like a cheater, enter 'ImAcheater'\
- as your name if you play again. Any feedback? Just email me at\
- dev@udel.edu. Keep up with further updates at www.udel.edu/~dev/. Please\
- send money.")
+    print ("\nThanks for playing. If you're feeling like a cheater, enter 'ImAcheater' as your name if you play again. Any feedback? Just email me at dev@udel.edu. Keep up with further updates at www.udel.edu/~dev/. Please send money.")
     input('\nPress enter to play again.')
     clear()
     resetvars()
@@ -237,8 +223,7 @@ def werewolfturn():
         attackdmg = werewolfdam[randint(0, 3)] * 2
     elif difficulty == '3':
         attackdmg = werewolfdam[randint(0, 3)] * 3
-    print ('\nThe werewolf slashes you for ' + str(attackdmg) \
-        + ' damage.')
+    print ('\nThe werewolf slashes you for ' + str(attackdmg) + ' damage.')
     hp -= attackdmg
     if hp <= 0:
         clear()
@@ -256,8 +241,7 @@ def devturn():
         attackdmg = devdam[randint(0, 3)] * 2
     elif difficulty == '3':
         attackdmg = devdam[randint(0, 3)] * 3
-    print ('\nThe angry developer hits you with a keyboard for ' + str(attackdmg) \
-        + ' damage.')
+    print ('\nThe angry developer hits you with a keyboard for ' + str(attackdmg) + ' damage.')
     hp -= attackdmg
     if hp <= 0:
         clear()
@@ -288,21 +272,17 @@ def combat1():
     if fight == '1':
         try:
             if bag['bronze sword'] > 0:
-                print ('\nYou strike the goblin with your bronze sword for ' \
-                    + str(playerdamsword[randint(0, 5)]) + ' damage.')
+                print ('\nYou strike the goblin with your bronze sword for ' + str(playerdamsword[randint(0, 5)]) + ' damage.')
                 goblinhp -= playerdamsword[randint(0, 5)]
                 sleep(1)
         except KeyError:
             try:
                 if bag['bronze rapier'] > 0:
-                    print ('\nYou stab the goblin with your bronze rapier for ' \
-                        + str(playerdamrapier[randint(0, 3)]) \
-                        + ' damage.')
+                    print ('\nYou stab the goblin with your bronze rapier for ' + str(playerdamrapier[randint(0, 3)]) + ' damage.')
                 goblinhp -= playerdamrapier[randint(0, 3)]
                 sleep(1)
             except KeyError:
-                print ('\nYou strike the goblin with your dagger for ' \
-                    + str(playerdamdagger[randint(0, 3)]) + ' damage.')
+                print ('\nYou strike the goblin with your dagger for ' + str(playerdamdagger[randint(0, 3)]) + ' damage.')
                 goblinhp -= playerdamdagger[randint(0, 3)]
                 sleep(1)
         if isdead1() is False:
@@ -311,21 +291,12 @@ def combat1():
             goblinturn()
         else:
             clear()
-            print ("\nThe goblin finally dies and falls to the ground as blood\
- pours from its wounds. You deliver a final blow and decapitate him.\
- Inside the cave you set the kidnapped women free and return to the\
- village with the goblin's head as a trophy.")
+            print ("\nThe goblin finally dies and falls to the ground as blood pours from its wounds. You deliver a final blow and decapitate him. Inside the cave you set the kidnapped women free and return to the village with the goblin's head as a trophy.")
             sleep(2)
             bossdead = True
             input('\nPress enter to continue.')
             clear()
-            print ("""
-When you return to town, the villagers welcome you with fanfare. You are \
-showered with flower petals and people shout praises from windows. Feasts and\
- drinking have started all over the village as the celebrations begin. 'Traveler\
- you are nothing but a blessing for us this day. Please, take this gold as a\
- token of our gratitude. Before you go, please feast and celebrate with us, it\
- is only tradition.
+            print ("""When you return to town, the villagers welcome you with fanfare. You are showered with flower petals and people shout praises from windows. Feasts and drinking have started all over the village as the celebrations begin. 'Traveler you are nothing but a blessing for us this day. Please, take this gold as a token of our gratitude. Before you go, please feast and celebrate with us, it is only tradition.
 
 \nYou obtain 300 gold.
 
@@ -370,21 +341,17 @@ def combat2():
     if fight == '1':
         try:
             if bag['silver sword'] > 0:
-                print ('\nYou strike the werewolf with your silver sword for ' \
-                    + str(playerdamsword[randint(0, 5)]*1.5) + ' damage.')
+                print ('\nYou strike the werewolf with your silver sword for ' + str(playerdamsword[randint(0, 5)]*1.5) + ' damage.')
                 werewolfhp -= playerdamsword[randint(0, 5)]*1.5
                 sleep(1.5)
         except KeyError:
             try:
                 if bag['silver rapier'] > 0:
-                    print ('\nYou stab the werewolf with your silver rapier for ' \
-                        + str(playerdamrapier[randint(0, 3)]*1.5) \
-                        + ' damage.')
+                    print ('\nYou stab the werewolf with your silver rapier for ' + str(playerdamrapier[randint(0, 3)]*1.5) + ' damage.')
                 werewolfhp -= playerdamrapier[randint(0, 3)]*1.5
                 sleep(1.5)
             except KeyError:
-                print ('\nYou strike the werewolf with your dagger for ' \
-                    + str(playerdamdagger[randint(0, 3)]) + ' damage.')
+                print ('\nYou strike the werewolf with your dagger for ' + str(playerdamdagger[randint(0, 3)]) + ' damage.')
                 werewolfhp -= playerdamdagger[randint(0, 3)]
                 sleep(1)
         if isdead2() is False:
@@ -393,21 +360,13 @@ def combat2():
             werewolfturn()
         else:
             clear()
-            print ("\nThe werewolf staggers backwards and falls over. Its\
- dark brown fur stained red with blood. You know it used to be a human,\
- but it needs to be put out of its misery. You kill it and drag the body\
- back to the village.")
+            print ("\nThe werewolf staggers backwards and falls over. Its dark brown fur stained red with blood. You know it used to be a human,but it needs to be put out of its misery. You kill it and drag the body back to the village.")
             bossdead = True
             sleep(2)
             input('\nPress enter to continue.')
             clear()
             print ("""
-The guards hastily open the gate when they see you approaching with the\
- dead monster. 'Bloody hell, he's bigger than I thought.', one of them says.\
- More guards come and hang the carcass up onto a pole and begin skinning it.\
- Apparently in Devista, werewolf pelts are a sign of power, and the bones are\
- ground into medicine. A messenger arrives and tells you that the Governor\
- wants to speak with you again.
+The guards hastily open the gate when they see you approaching with the dead monster. 'Bloody hell, he's bigger than I thought.', one of them says. More guards come and hang the carcass up onto a pole and begin skinning it. Apparently in Devista, werewolf pelts are a sign of power, and the bones are ground into medicine. A messenger arrives and tells you that the Governor wants to speak with you again.
 """)
             intown2()
     elif fight == '2':
