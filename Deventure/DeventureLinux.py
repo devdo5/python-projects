@@ -39,7 +39,7 @@ given = False
 # Clear screen function (Linux)
 
 def clear():
-  system('printf "\033c"'')
+  system('printf "\033c"')
 
 
 # Resets variables if you play again
