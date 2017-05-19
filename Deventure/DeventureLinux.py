@@ -380,21 +380,13 @@ The guards hastily open the gate when they see you approaching with the dead mon
                 werewolfturn()
             else:
                 clear()
-                print ("\nThe werewolf staggers backwards and falls over. Its\
- dark brown fur stained red with blood. You know it used to be a human,\
- but it needs to be put out of its misery. You kill it and drag the body\
- back to the village.")
+                print ("\nThe werewolf staggers backwards and falls over. Its dark brown fur stained red with blood. You know it used to be a human, but it needs to be put out of its misery. You kill it and drag the body back to the village.")
                 bossdead = True
                 sleep(2)
                 input('\nPress enter to continue.')
                 clear()
                 print ("""
-The guards hastily open the gate when they see you approaching with the\
- dead monster. 'Bloody hell, he's bigger than I thought.', one of them says.\
- More guards come and hang the carcass up onto a pole and begin skinning it.\
- Apparently in Devista, werewolf pelts are a sign of power, and the bones are\
- ground into medicine. A messenger arrives and tells you that the Governor\
- wants to speak with you again.
+The guards hastily open the gate when they see you approaching with the dead monster. 'Bloody hell, he's bigger than I thought.', one of them says. More guards come and hang the carcass up onto a pole and begin skinning it. Apparently in Devista, werewolf pelts are a sign of power, and the bones are ground into medicine. A messenger arrives and tells you that the Governor wants to speak with you again.
 """)
                 intown2()
         else:
@@ -484,8 +476,7 @@ Welcome to my shop. These are the items that I am selling today:
                         try:
                             bag[prompt] += prompt2
                             bag['gold'] -= goldowe
-                            print ('You bought ' + str(prompt2) + ' ' \
-                                + prompt)
+                            print ('You bought ' + str(prompt2) + ' ' + prompt)
                             input('Press enter to keep shopping.')
                             clear()
                             shop1()
@@ -493,8 +484,7 @@ Welcome to my shop. These are the items that I am selling today:
                             bag[prompt] = 0
                             bag[prompt] += prompt2
                             bag['gold'] -= goldowe
-                            print ('\nYou bought ' + str(prompt2) + ' ' \
-                                + prompt)
+                            print ('\nYou bought ' + str(prompt2) + ' ' + prompt)
                             input('Press enter to keep shopping.')
                             clear()
                             shop1()
@@ -525,8 +515,7 @@ def rest1():
     global hp
     global mana
     sleepornah = \
-        input('\nWelcome to the inn, a room for the night costs 30 gold. \
-You have '
+        input('\nWelcome to the inn, a room for the night costs 30 gold. You have '
                + str(bag['gold'])
               + ' gold. \nWould you like to rent a room?\n> ')
     if sleepornah.lower() == 'yes' or sleepornah.lower() == 'y':
@@ -540,8 +529,7 @@ You have '
             hp = hpthresh
             mana = manathresh
             bag['gold'] -= 30
-            print ('\nYou awaken feeling well rested. Your HP and Mana have been \
-restored.')
+            print ('\nYou awaken feeling well rested. Your HP and Mana have been restored.')
             intown1()
     else:
         clear()
@@ -551,8 +539,7 @@ def rest2():
     global hp
     global mana
     sleepornah = \
-        input('\nWelcome to the inn, a room for the night costs 30 gold. \
-You have '
+        input('\nWelcome to the inn, a room for the night costs 30 gold. You have '
                + str(bag['gold'])
               + ' gold. \nWould you like to rent a room?\n> ')
     if sleepornah.lower() == 'yes' or sleepornah.lower() == 'y':
@@ -566,8 +553,7 @@ You have '
             hp = hpthresh
             mana = manathresh
             bag['gold'] -= 30
-            print ('\nYou awaken feeling well rested. Your HP and Mana have been \
-restored.')
+            print ('\nYou awaken feeling well rested. Your HP and Mana have been restored.')
             intown2()
     else:
         clear()
@@ -588,24 +574,14 @@ def intown1():
         print ('\nYou decide to talk to the locals...')
         sleep(1.5)
         if bossdead is False:
-            print ("\nOld Lady: My, what a handsome young man you are! My \
-daughter could use a husband like you. She doesn't want to marry\
- any of the village boys. Perhaps a brave adventurer like you could\
- woo her? But who can think about marriage when there is a goblin\
- that comes into town every night and attacks our cattle and kidnaps\
- our women! Please do something about it. We will be forever grateful.\
- I would buy a better weapon from the shop and some potions too if you\
- want to stand a chance!")
+            print ("\nOld Lady: My, what a handsome young man you are! My daughter could use a husband like you. She doesn't want to marry any of the village boys. Perhaps a brave adventurer like you could woo her? But who can think about marriage when there is a goblin that comes into town every night and attacks our cattle and kidnaps our women! Please do something about it. We will be forever grateful. I would buy a better weapon from the shop and some potions too if you want to stand a chance!")
             talked = True
             input('\nPress enter to return to town.')
             clear()
             intown1()
         else:
             if given is False:
-                print ('\nOld Lady: My goodness you did it! We will be forever\
- grateful! Please, take this family heirloom as a token of my\
- gratitude! Now please, go to the next town and see if they need any\
- help.')
+                print ('\nOld Lady: My goodness you did it! We will be forever grateful! Please, take this family heirloom as a token of my gratitude! Now please, go to the next town and see if they need any help.')
                 print ('''
 You obtained Ancestral Armor.
 You max hp has increased by 10%.''')
@@ -616,9 +592,7 @@ You max hp has increased by 10%.''')
                 clear()
                 intown1()
             else:
-                print ('\nThank you for your brave acts, hero. Please, go\
- to the next town and see if they need help. Your work here\
- is done.')
+                print ('\nThank you for your brave acts, hero. Please, go to the next town and see if they need help. Your work here is done.')
                 input('\nPress enter to return to town.')
                 clear()
                 intown1()
@@ -632,14 +606,7 @@ You max hp has increased by 10%.''')
             area2()
         else:
             print ("""
-You decide to venture out to kill the goblin that is terrorizing the village.
-Eventually you find his cave on the mountainside. You step inside and light\
- a torch. The walls are covered in scratches and blood. As you reach the inner\
- sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
- smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh\
- in quite a while...looks like it's back on the menu.' 'Come then, your meal\
- awaits,' you say as you draw your weapon. He leaps down from his pile to\
- meet you in combat.""")
+You decide to venture out to kill the goblin that is terrorizing the village. Eventually you find his cave on the mountainside. You step inside and light a torch. The walls are covered in scratches and blood. As you reach the inner sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh in quite a while...looks like it's back on the menu.' 'Come then, your meal awaits,' you say as you draw your weapon. He leaps down from his pile to meet you in combat.""")
             combat1()
     else:
         print ('Please select a number.')
@@ -660,21 +627,17 @@ def combat3():
     if fight == '1':
         try:
             if bag['silver sword'] > 0:
-                print ('\nYou strike the angry developer with your silver sword for ' \
-                    + str(playerdamsword[randint(0, 5)]) + ' damage.')
+                print ('\nYou strike the angry developer with your silver sword for ' + str(playerdamsword[randint(0, 5)]) + ' damage.')
                 devhp -= playerdamsword[randint(0, 5)]
                 sleep(1.5)
         except KeyError:
             try:
                 if bag['silver rapier'] > 0:
-                    print ('\nYou stab the angry developer with your silver rapier for ' \
-                        + str(playerdamrapier[randint(0, 3)]) \
-                        + ' damage.')
+                    print ('\nYou stab the angry developer with your silver rapier for ' + str(playerdamrapier[randint(0, 3)]) + ' damage.')
                 devhp -= playerdamrapier[randint(0, 3)]
                 sleep(1.5)
             except KeyError:
-                print ('\nYou strike the angry developer with your dagger for ' \
-                    + str(playerdamdagger[randint(0, 3)]) + ' damage.')
+                print ('\nYou strike the angry developer with your dagger for ' + str(playerdamdagger[randint(0, 3)]) + ' damage.')
                 devhp -= playerdamdagger[randint(0, 3)]
                 sleep(1)
         if isdead3() is False:
@@ -792,8 +755,7 @@ Welcome to my shop. These are the items that I am selling today:
                         try:
                             bag[prompt] += prompt2
                             bag['gold'] -= goldowe
-                            print ('You bought ' + str(prompt2) + ' ' \
-                                + prompt)
+                            print ('You bought ' + str(prompt2) + ' ' + prompt)
                             input('Press enter to keep shopping.')
                             clear()
                             shop2()
@@ -801,8 +763,7 @@ Welcome to my shop. These are the items that I am selling today:
                             bag[prompt] = 0
                             bag[prompt] += prompt2
                             bag['gold'] -= goldowe
-                            print ('\nYou bought ' + str(prompt2) + ' ' \
-                                + prompt)
+                            print ('\nYou bought ' + str(prompt2) + ' ' + prompt)
                             input('Press enter to keep shopping.')
                             clear()
                             shop2()
@@ -870,13 +831,7 @@ def intown2():
             intown2()
         else:
             if given is False:
-                print ("\nGovernor: Well I'll be damned, you actually did it!\
- I'll be honest I thought you were dead. You've done me a great service and\
- saved me many men and resources. For that, I shall grant you the title of\
- Thane of Devista. That's like one rank under me, but above everyone else.\
- Don't let it get to your head though. Here, we skinned the pelt and thought\
- you should have it. It's pretty thick and should keep you warm and protected.\
- Also it looks pretty stylish. I HIGHLY RECOMMEND STOCKING UP ON SUPPLIES AND HEALING before leaving town, thats the final boss fight. Enjoy!")
+                print ("\nGovernor: Well I'll be damned, you actually did it! I'll be honest I thought you were dead. You've done me a great service and saved me many men and resources. For that, I shall grant you the title of Thane of Devista. That's like one rank under me, but above everyone else. Don't let it get to your head though. Here, we skinned the pelt and thought you should have it. It's pretty thick and should keep you warm and protected. Also it looks pretty stylish. I HIGHLY RECOMMEND STOCKING UP ON SUPPLIES AND HEALING before leaving town, thats the final boss fight. Enjoy!")
                 print ('''
 You obtained the rank of Thane of Devista and the Werewolf Pelt.
 Your armor has increased by 10%''')
@@ -899,15 +854,7 @@ Your armor has increased by 10%''')
         if werewolfhp <= 0:
             area3()
         else:
-            print ("""
-You decide to venture out to kill the werewolf that is terrorizing the village.\
- Eventually you find his cave on the mountainside. You step inside and light\
- a torch. The walls are covered in scratches and blood. As you reach the inner\
- sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I\
- smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh\
- in quite a while...looks like it's back on the menu.' 'Come then, your meal\
- awaits,' you say as you draw your weapon. He leaps down from his pile to\
- meet you in combat.""")
+            print ("""You decide to venture out to kill the werewolf that is terrorizing the village. Eventually you find his cave on the mountainside. You step inside and light a torch. The walls are covered in scratches and blood. As you reach the inner sanctum, the goblin is patiently sitting on a pile of animal bones. 'I knew I smelled a human,' he says, eyeing you closely. 'I haven't tasted human flesh in quite a while...looks like it's back on the menu.' 'Come then, your meal awaits,' you say as you draw your weapon. He leaps down from his pile to meet you in combat.""")
             combat2()
     else:
         print ('Please select a number.')
