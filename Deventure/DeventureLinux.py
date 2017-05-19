@@ -7,16 +7,16 @@ from os import system
 #########GLOBAL VARIABLES###################
 
 name = None
-goblinhp = 60
-werewolfhp = 100
-dragonhp = 200
+goblinhp = 100
+werewolfhp = 200
+devhp = 300
 playerdamdagger = [2, 3, 4, 5]
 playerdamsword = [5, 6, 7, 8, 9, 10,]
 playerdamrapier = [2, 4, 6, 8]
 difficulty = None
 goblindam = [2, 4, 6, 8, 10]
 werewolfdam = [5, 10, 15, 20]
-dragondam = [10, 15, 20, 25]
+devdam = [1,2,3,4]
 hp = 50
 mana = 100
 manathresh = 100
@@ -49,20 +49,20 @@ def resetvars():
     global hp
     global bag
     global werewolfhp
-    global dragonhp
     global mana
     global hpthresh
     global given
     global bossdead
     global talked
     global choice
+    global devhp
     given = False
     bossdead = False
     talked = False
     choice = None
-    goblinhp = 60
-    werewolfhp = 100
-    dragonhp = 200
+    goblinhp = 100
+    werewolfhp = 200
+    devhp = 300
     hp = 50
     hpthresh = 100
     mana = 100
@@ -204,10 +204,8 @@ def isdead2():
     return bool(werewolfhp <= 0)
 
 
-# Checks to see if the dragon is dead
-
 def isdead3():
-    return bool(dragonhp <= 0)
+    return bool(devhp <= 0)
 
 
 # Goblin's attack turn, checks if you're dead after every attack
@@ -250,24 +248,28 @@ def werewolfturn():
         combat2()
 
 
-# Dragon attack turn
-
-def dragonturn():
+def devturn():
     global hp
     if difficulty == '1':
-        attackdmg = dragondam[randint(0, 3)] * 1
+        attackdmg = devdam[randint(0, 3)] * 1
     elif difficulty == '2':
-        attackdmg = dragondam[randint(0, 3)] * 2
+        attackdmg = devdam[randint(0, 3)] * 2
     elif difficulty == '3':
-        attackdmg = dragondam[randint(0, 3)] * 3
-    print ('\nThe dragon bites you for ' + str(attackdmg) + ' damage.')
+        attackdmg = devdam[randint(0, 3)] * 3
+    print ('\nThe angry developer hits you with a keyboard for ' + str(attackdmg) \
+        + ' damage.')
     hp -= attackdmg
     if hp <= 0:
         clear()
         print ('\nYou have died.')
+        input("\n\nPress enter to continue")
+        clear()
         gameend()
     else:
         combat3()
+
+
+
 
 
 # Main combat function for the first area
@@ -407,7 +409,7 @@ The guards hastily open the gate when they see you approaching with the\
  ground into medicine. A messenger arrives and tells you that the Governor\
  wants to speak with you again.
 """)
-            intown1()
+            intown2()
     elif fight == '2':
         if mana >= 20:
             print ('\nYou fireball the werewolf for 15 damage.')
@@ -435,7 +437,7 @@ The guards hastily open the gate when they see you approaching with the\
  ground into medicine. A messenger arrives and tells you that the Governor\
  wants to speak with you again.
 """)
-                intown1()
+                intown2()
         else:
             print ("\nYou don't have enough mana to cast this spell!")
             sleep(1)
@@ -684,6 +686,104 @@ Eventually you find his cave on the mountainside. You step inside and light\
         print ('Please select a number.')
         intown1()
 
+def combat3():
+    global devhp
+    global hp
+    global mana
+    print ('\nYou have ' + str(hp) + ' health and ' + str(mana) + ' mana.')
+    fight = \
+        input("""
+1. Attack
+2. Fireball (20mp)
+3. Use health potion
+4. Use mana potion
+> """)
+    if fight == '1':
+        try:
+            if bag['silver sword'] > 0:
+                print ('\nYou strike the angry developer with your silver sword for ' \
+                    + str(playerdamsword[randint(0, 5)]) + ' damage.')
+                devhp -= playerdamsword[randint(0, 5)]
+                sleep(1.5)
+        except KeyError:
+            try:
+                if bag['silver rapier'] > 0:
+                    print ('\nYou stab the angry developer with your silver rapier for ' \
+                        + str(playerdamrapier[randint(0, 3)]) \
+                        + ' damage.')
+                devhp -= playerdamrapier[randint(0, 3)]
+                sleep(1.5)
+            except KeyError:
+                print ('\nYou strike the angry developer with your dagger for ' \
+                    + str(playerdamdagger[randint(0, 3)]) + ' damage.')
+                devhp -= playerdamdagger[randint(0, 3)]
+                sleep(1)
+        if isdead3() is False:
+            sleep(1.5)
+            clear()
+            devturn()
+        else:
+            clear()
+            print ("\nThe developer falls over, dead. You loot his house and get out just in time for the end game screen. 'Should've used Git'")
+            sleep(2)
+            input('\nPress enter to continue.')
+            clear()
+            gameend()
+    elif fight == '2':
+        if mana >= 20:
+            print ('\nYou fireball the angry developer for 15 damage.')
+            mana -= 20
+            devhp -= 15
+            if isdead3() is False:
+                sleep(1)
+                clear()
+                devturn()
+            else:
+                clear()
+                print ("\nThe developer falls over, dead. You loot his house and get out just in time for the end game screen. 'Should've used Git'")
+                sleep(2)
+                input('\nPress enter to continue.')
+                clear()
+                gameend()
+        else:
+            print ("\nYou don't have enough mana to cast this spell!")
+            sleep(1)
+            clear()
+            combat3()
+    elif fight == '4':
+        if bag['mana potion'] > 0:
+            print ('\n40 mana restored with mana potion.')
+            bag['mana potion'] -= 1
+            mana += 40
+            manabal()
+            sleep(1)
+            clear()
+            combat3()
+        else:
+            print ('\nYou have no more mana potions!')
+            sleep(1)
+            clear()
+            combat3()
+    elif fight == '3':
+        if bag['health potion'] > 0:
+            print ('\n40 health restored with health potion.')
+            bag['health potion'] -= 1
+            hp += 40
+            hpbal()
+            sleep(1)
+            clear()
+            combat3()
+        else:
+            print ('\nYou have no more health potions!')
+            sleep(1)
+            clear()
+            combat3()
+    else:
+        print ('\nPlease choose an option.')
+        combat3()
+
+
+
 def shop2():
     global bag
     stock = {
@@ -767,6 +867,17 @@ Press enter to go back.''')
         clear()
         shop2()
 
+def area3():
+  clear()
+  input("There was supposed to be another encounter, another town, and lastly another boss but I ran out of time. I'll just break the 4th wall or something to keep it interesting\n\nPress enter to continue")
+  clear()
+  input("You roam the countryside for days until you reach a small lodge on a hill. You walk up and knock on the door. 'Who's there?' a voice says from the inside. You tell him you're just a traveler looking for shelter. 'I don't get many visitors around here, come on in.' the person says. He opens the door and you walk inside. To your surprise, the resident is a young man around 18 years old. On his desk are a bunch of ramen cups and a computer with a bunch of code on it. 'Oh, I've been working on this text based game as a project for my comp sci class, check out all this convoluted and repetitive code.' You stare at it for a while, and see this very sentence. 'Hey, how does it know what im going to say?' But you read that part anyway so it just made you more confused\n\nPress enter to continue through boring dialogue.")
+  clear()
+  input("'Sadly I didn't have enough time to finish before it was due so I just need to make some stupid ending to please my professor.' he said. You acknowledge that he is busy so you take your bag off and try to relax but accidentally trip over the power cable to his computer. It turns off and he freaks out. 'I DIDN'T SAVE, ALL MY PROGRESS GONE! YOU'LL PAY FOR THAT!\n\nPress enter to initiate final boss fight.")
+  clear()
+  combat3()
+  
+
 def intown2():
     global talked
     global given
@@ -784,12 +895,17 @@ def intown2():
             print ("\nGovernor: The Goblin Slayer himself! What brings you to Devista huh? Don't even tell me, because I know. You came here to slay that damned werewolf that's been killing our hunters. We're worried that he might attack the town one night. These walls are good against humans but that creature can jump over it. There will be a hefty reward if you bring me his head. Give me those bronze weapons, useless garbage they are. Heres some money, go buy some silver weapons from the town shop. They should do some damage to the werewolf. Stay safe out there!\
 \n\nBronze Weapons removed, 100 gold obtained.")
             talked = True
-            if bag['bronze sword'] > 0:
-              del bag['bronze sword']
+            try:
+              if bag['bronze sword'] > 0:
+                del bag['bronze sword']
               if bag['bronze rapier'] > 0:
                 del bag['bronze rapier']
-            elif bag['bronze rapier'] > 0:
+              elif bag['bronze rapier'] > 0:
                 del bag['bronze rapier']
+            except KeyError:
+              input('\nPress enter to return to town.')
+            clear()
+            intown2()
             input('\nPress enter to return to town.')
             clear()
             intown2()
@@ -801,7 +917,7 @@ def intown2():
  Thane of Devista. That's like one rank under me, but above everyone else.\
  Don't let it get to your head though. Here, we skinned the pelt and thought\
  you should have it. It's pretty thick and should keep you warm and protected.\
- Also it looks pretty stylish. Enjoy!")
+ Also it looks pretty stylish. I HIGHLY RECOMMEND STOCKING UP ON SUPPLIES AND HEALING before leaving town, thats the final boss fight. Enjoy!")
                 print ('''
 You obtained the rank of Thane of Devista and the Werewolf Pelt.
 Your armor has increased by 10%''')
